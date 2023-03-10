@@ -116,6 +116,7 @@
 <script>
 import firebaseApp from '@/plugins/firebase'
 import mqtt from 'mqtt/dist/mqtt'
+var dictRover = {};
 export default {
     data() {
         return {
@@ -142,7 +143,6 @@ export default {
             DoorStatus: "N/a",
             idcamera: 0,
             countRover: 0,
-            timemqtt: 0,
             connection: {
                 protocol: 'ws',
                 host: '34.143.225.243',
@@ -199,7 +199,9 @@ export default {
             // this.items.remove()
             for (const [key, value] of Object.entries(ss.val())) {
                 console.log(`${key}: ${value}`);
+
                 this.countRover++;
+                dictRover[key] = this.countRover;
                 // console.log(this.countRover)
                 // console.log(`${key}`);
                 this.items.push({
@@ -223,13 +225,8 @@ export default {
             var refStatus = "";
             console.log(text.text)
             this.namerover = text.text
-            // Mqtt
-            this.subscription = [];
-            this.subscription = {
-                qos: 0,
-                topic: this.namerover.toLowerCase() + '/status'
-            }
-            this.doSubscribe();
+            // StatusRover
+            // this.StatusRover = this.items.
             // Firebase
             refStatus = "/" + this.namerover + '/status'
             this.dbStatus = firebaseApp.database().ref(refStatus)
@@ -272,12 +269,14 @@ export default {
             //     },
             // ],
             this.$set(this.item[0], 'textx', 'nom');
+
             // this.item.text['n']="noom"
             // console.log(this.item.text)
         },
         printtext() {
             // console.log(this.item)
-            console.log(this.items)
+            // console.log(this.items)
+            console.log(dictRover["Rover2"])
 
         },
         doorS() {
@@ -357,7 +356,7 @@ export default {
                         this.receiveNews = this.receiveNews.concat(message)
                         console.log(`Received message ${message} from topic ${topic}`)
                         // console.log(message)
-                        this.StatusRover = message
+                        
                         // this.text = "OFF"
                         this.timemqtt = this.timenow()
                         // console.log()
