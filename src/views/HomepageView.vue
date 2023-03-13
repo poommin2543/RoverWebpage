@@ -3,7 +3,7 @@
         <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" permanent color="primary"
             width="250">
             <!-- <v-icon>home</v-icon> -->
-            <v-card width="100%" height="8%" color="red" class="">
+            <v-card width="100%" height="6%" color="red" class="">
                 <v-row no-gutters>
                     <v-card cols="2">
                         <v-sheet class="pl-5 mt-4">
@@ -19,13 +19,13 @@
                     </v-card>
                 </v-row>
             </v-card>
-            <v-card width="100%" height="30%" color="blue" class="pa-0 ma-0">
+            <v-card width="100%" height="25%" color="blue" class="pa-0 ma-0">
                 <p class="pt-3 ml-3">RoverList</p>
-                <v-card width="90%" height="80%" color="white" class="pa-0 ma-3 mt-n4 scrolling rounded-3">
+                <v-card width="90%" height="85%" color="white" class="pa-0 ma-3 mt-n4 scrolling rounded-3">
                     <v-list>
                         <v-list-item-group v-model="model" mandatory color="indigo">
                             <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
-                                
+
                                 <v-list-item-icon>
                                     <v-icon v-text="item.icon"></v-icon>
                                 </v-list-item-icon>
@@ -41,12 +41,12 @@
                     </v-list>
                 </v-card>
             </v-card>
-            <v-card width="100%" height="30%" color="red" class="">
-                <p class="pt-4 ml-3">Status</p>
-                <v-card width="90%" height="80%" class="pa-0 ma-3 mt-n4 scrolling">
-                    <v-card width="89%" height="89%" class="pa-0 ma-3 bgg">
+            <v-card width="100%" height="24%" color="red" class="">
+                <p class="pt-1 ml-3">Status</p>
+                <v-card width="90%" height="86%" color="blue" class="pa-0 ma-3 ">
+                    <v-card width="89%" height="93%" color="orange" class="pa-0 ma-3">
                         <p class="pl-8 ma-n3 ">Rover Status.</p>
-                        <div width="100%" height="100%" class="pa-0 ma-0 bgg">
+                        <div width="100%" height="100%" class="bgg">
                             <v-row no-gutters>
                                 <v-col>
                                     <p class="pl-1 ma-2 ">Rover No.</p>
@@ -90,25 +90,38 @@
                         </div>
                     </v-card>
                 </v-card>
-                <v-card width="100%" height="50%" color="blue" class="">
-                    <p class="pt-4 ml-3">RoverMode</p>
-                    <v-card width="90%" height="52%" color="white" class="pa-0 ma-3 mt-n4 scrolling">
-                        <v-btn block color="success" variant="outlined" class="pa-0 mb-1" @click="pushtext">
-                            Click
+
+            </v-card>
+            <v-card width="100%" height="20%" color="blue" class="">
+                <p class="pt-4 ml-3">RoverMode</p>
+                <v-card width="90%" height="70%" color="white" class="pa-0 ma-3 mt-n4">
+                    <v-card width="100%" height="33%" color="red" class="pb-0 mt-0">
+                        <v-btn v-if="isActiveOpencontorl" color="black" outlined class="pl-16 pr-16 ml-6 mt-3"
+                            @click="clickAuto">
+                            Auto
                         </v-btn>
-                        <v-btn block color="success" @click="printtext">
-                            Click
+                    </v-card>
+                    <v-card width="100%" height="33%" color="green" class="pt-0 pb-0 mt-0">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" color="black" outlined
+                            class="pl-16 pr-16 ml-6 mt-0" @click="clickDoor">
+                            Door
+                        </v-btn>
+                    </v-card>
+                    <v-card width="100%" height="33%" color="yellow" class=" pt-0 pa-0 ma-0">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" color="red" class="pl-16 pr-16 ml-6 mt-n4"
+                            @click="clickJoy">
+                            Joy
                         </v-btn>
                     </v-card>
                 </v-card>
-                <v-card width="100%" height="58%" color="red" class="">
-                </v-card>
+            </v-card>
+            <v-card width="100%" height="20%" color="red" class="">
             </v-card>
         </v-navigation-drawer>
         <v-content class="fill-height">
             <v-card width="100%" height="25%" color="red" class="rounded-0">
             </v-card>
-            <v-card width="100%" height="75%" color="blue" class="rounded-0">
+            <v-card width="100%" height="70%" color="blue" class="rounded-0">
             </v-card>
         </v-content>
     </v-container>
@@ -135,7 +148,11 @@ export default {
                     status: true,
                 },
             ],
-
+            isActiveJoy: false,
+            isActiveDoor: false,
+            isOpenDoor: false,
+            isActiveOpencontorl: false,
+            StatusDoor: false,
             namerover: "N/a",
             StatusRover: "N/a",
             Battery: "N/a",
@@ -193,6 +210,7 @@ export default {
         //       this.connect(JANUS_URL)
         //     }
         //   })
+        this.dbRef = firebaseApp.database().ref('/')
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
             this.items = []
@@ -208,7 +226,7 @@ export default {
                     text: key,
                     // icon: require('../assets/img/class_front.png'),
                     icon: 'toys',
-                    status:'offline'
+                    status: 'offline'
                 });
                 this.subscription = [];
                 this.subscription = {
@@ -218,15 +236,46 @@ export default {
                 this.doSubscribe();
             }
         })
+        // this.dbRef.off()
     },
     methods: {
+        clickAuto() {
+            this.isActiveDoor = !this.isActiveDoor
+        },
+        clickDoor() {
+            this.StatusDoor = true
+            // this.isActiveDoor = this.isActiveDoor ? false : true; 
+            this.isOpenDoor = !this.isOpenDoor
+            this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
+            if (this.isOpenDoor) {
+                this.dbRefAutoDoor.update({ door: false });
+            }
+            else {
+                // this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
+                this.dbRefAutoDoor.update({ door: true });
+            }
+        },
+        clickJoy() {
+            this.isActiveJoy = !this.isActiveJoy
+        },
         updateSelected(text) {
+            this.dbRef.off()
             // this.doUnSubscribe()
+            //check DbStatusDoor
+            if(this.StatusDoor == true){
+                this.dbRefAutoDoor.off()
+            }
+            
+            //Click button open 
+            this.isActiveOpencontorl = true
             var refStatus = "";
+            if (this.refStatus === true) {
+                this.dbStatus.off()
+            }
             console.log(text.text)
             this.namerover = text.text
             // StatusRover
-            this.StatusRover = this.items[dictRover[text.text]-1].status
+            this.StatusRover = this.items[dictRover[text.text] - 1].status
             // Firebase
             refStatus = "/" + this.namerover + '/status'
             this.dbStatus = firebaseApp.database().ref(refStatus)
@@ -260,24 +309,12 @@ export default {
             }
             )
         },
-        pushtext() {
-            // item: [
-            //     {
-            //         icon: 'mdi-wifi',
-            //         text: 'n',
-            //         status: true,
-            //     },
-            // ],
-            this.$set(this.item[0], 'textx', 'nom');
-
-            // this.item.text['n']="noom"
-            // console.log(this.item.text)
-        },
+        
         printtext() {
             // console.log(this.item)
             // console.log(this.items)
-            console.log(dictRover["Rover1"]-1)
-            console.log(this.items[dictRover["Rover1"]-1].status)
+            console.log(dictRover["Rover1"] - 1)
+            console.log(this.items[dictRover["Rover1"] - 1].status)
 
         },
         doorS() {
@@ -300,16 +337,16 @@ export default {
             for (let i = 0; i < this.countRover; i++) {
                 if ((this.timenow() - this.check[i]) > 0.1) {
                     this.$set(this.items[i], 'status', "offline");
-                    if (this.namerover != "N/a"){
-                        this.StatusRover = this.items[dictRover[this.namerover]-1].status                    
+                    if (this.namerover != "N/a") {
+                        this.StatusRover = this.items[dictRover[this.namerover] - 1].status
                     }
 
                     // console.log("offline")
                 }
-                else if ((this.timenow() - this.check[i]) < 0.1){
+                else if ((this.timenow() - this.check[i]) < 0.1) {
                     this.$set(this.items[i], 'status', "online");
-                    if (this.namerover != "N/a"){
-                        this.StatusRover = this.items[dictRover[this.namerover]-1].status                    
+                    if (this.namerover != "N/a") {
+                        this.StatusRover = this.items[dictRover[this.namerover] - 1].status
                     }
                     // this.StatusRover = this.items[dictRover[this.namerover]-1].status
                     // console.log("online")
@@ -366,7 +403,7 @@ export default {
                         this.receiveNews = this.receiveNews.concat(message)
                         // console.log(`Received message ${message} from topic ${topic}`)
                         // console.log(message)
-                        
+
                         // this.text = "OFF"
                         this.timemqtt = this.timenow()
                         // console.log()
@@ -414,7 +451,7 @@ export default {
     created() {
         // console.log("created()");
         // สร้าง reference ไปยัง counter ซึ่งเป็น root node ของ reatime database
-        this.dbRef = firebaseApp.database().ref('/')
+        // this.dbRef = firebaseApp.database().ref('/')
         // this.dbStatus = firebaseApp.database().ref('/Rover1/status')
         // this.dbRef1 = firebaseApp.database().ref('Rover1/location/user')
     },
@@ -440,5 +477,4 @@ export default {
 
 .textbg {
     background-color: aqua;
-}
-</style>
+}</style>
