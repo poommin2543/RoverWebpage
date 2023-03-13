@@ -226,14 +226,14 @@ export default {
             console.log(text.text)
             this.namerover = text.text
             // StatusRover
-            // this.StatusRover = this.items.
+            this.StatusRover = this.items[dictRover[text.text]-1].status
             // Firebase
             refStatus = "/" + this.namerover + '/status'
             this.dbStatus = firebaseApp.database().ref(refStatus)
             this.refStatus = true;
             this.dbStatus.on('value', ss => {
                 for (const [key, value] of Object.entries(ss.val())) {
-                    console.log(`${key}: ${value}`);
+                    // console.log(`${key}: ${value}`);
                     if (key == 'Battery') {
                         // console.log(`${key}: ${value}`);
                         this.Battery = value + ' %'
@@ -276,7 +276,8 @@ export default {
         printtext() {
             // console.log(this.item)
             // console.log(this.items)
-            console.log(dictRover["Rover2"])
+            console.log(dictRover["Rover1"]-1)
+            console.log(this.items[dictRover["Rover1"]-1].status)
 
         },
         doorS() {
@@ -299,13 +300,22 @@ export default {
             for (let i = 0; i < this.countRover; i++) {
                 if ((this.timenow() - this.check[i]) > 0.1) {
                     this.$set(this.items[i], 'status', "offline");
-                    console.log("offline")
+                    if (this.namerover != "N/a"){
+                        this.StatusRover = this.items[dictRover[this.namerover]-1].status                    
+                    }
+
+                    // console.log("offline")
                 }
                 else if ((this.timenow() - this.check[i]) < 0.1){
                     this.$set(this.items[i], 'status', "online");
-                    console.log("online")
+                    if (this.namerover != "N/a"){
+                        this.StatusRover = this.items[dictRover[this.namerover]-1].status                    
+                    }
+                    // this.StatusRover = this.items[dictRover[this.namerover]-1].status
+                    // console.log("online")
                 }
-                console.log((this.timenow() - this.check[i]))
+                // console.log(this.namerover)
+                // console.log((this.timenow() - this.check[i]))
             }
 
 
@@ -354,7 +364,7 @@ export default {
                     })
                     this.client.on('message', (topic, message) => {
                         this.receiveNews = this.receiveNews.concat(message)
-                        console.log(`Received message ${message} from topic ${topic}`)
+                        // console.log(`Received message ${message} from topic ${topic}`)
                         // console.log(message)
                         
                         // this.text = "OFF"
@@ -379,13 +389,14 @@ export default {
         doSubscribe() {
             const { topic, qos } = this.
                 subscription
-            this.client.subscribe(topic, { qos }, (error, res) => {
+            // this.client.subscribe(topic, { qos }, (error, res) => {
+            this.client.subscribe(topic, { qos }, (error) => {
                 if (error) {
                     console.log('Subscribe to topics error', error)
                     return
                 }
                 this.subscribeSuccess = true
-                console.log('Subscribe to topics res', res)
+                // console.log('Subscribe to topics res', res)
             })
         },
         // unsubscribe topic
@@ -401,7 +412,7 @@ export default {
 
     },
     created() {
-        console.log("created()");
+        // console.log("created()");
         // สร้าง reference ไปยัง counter ซึ่งเป็น root node ของ reatime database
         this.dbRef = firebaseApp.database().ref('/')
         // this.dbStatus = firebaseApp.database().ref('/Rover1/status')
