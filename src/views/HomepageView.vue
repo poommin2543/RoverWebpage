@@ -121,9 +121,9 @@
         <v-content class="fill-height">
             <v-card width="100%" height="20%" color="black" class="rounded-0 justify-center">
             <v-card-actions width="80%" height="100%" color="while" class="justify-center pl-n5">
-                <img v-if="isActiveOpencontorl && isActiveDoor" src="../assets/img/template.png" class="img-fluid" alt="Responsive image">
-                <!-- <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
-                playsinline width="1280px" height="240px"></video> -->
+                <!-- <img v-if="isActiveOpencontorl && isActiveDoor" src="../assets/img/template.png" class="img-fluid" alt="Responsive image"> -->
+                <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
+                playsinline width="1280px" height="240px"></video>
             </v-card-actions>
                 <!-- <h3 v-if="status == 'starting'"> Loading video stream ... </h3> -->
                 <!-- <v-img src="../assets/img/template.png" class="img-fluid" alt="Responsive image"> -->
@@ -249,14 +249,14 @@ export default {
         // this.doSubscribe()
         this.interval = setInterval(() => this.Checkonline(), 3000);
         //   this.isOpened = this.isMenuOpen
-        //   Janus.init({
-        //     debug: true,
-        //     dependencies: Janus.useDefaultDependencies(),
-        //     callback: () => {
-        //       console.log("Connecting to Janus api with server ", JANUS_URL)
-        //       this.connect(JANUS_URL)
-        //     }
-        //   })
+          Janus.init({
+            debug: true,
+            dependencies: Janus.useDefaultDependencies(),
+            callback: () => {
+              console.log("Connecting to Janus api with server ", JANUS_URL)
+              this.connect(JANUS_URL)
+            }
+          })
         // this.dbRef = firebaseApp.database().ref('/')
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
@@ -342,7 +342,7 @@ export default {
                     if (key == 'idcam') {
                         // console.log(`${key}: ${value}`);
                         this.idcamera = value
-                        // this.start();
+                        this.start();
                     }
                     if (key == 'door') {
                         // console.log(`${key}: ${value}`);
