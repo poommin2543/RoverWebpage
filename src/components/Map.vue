@@ -1,7 +1,7 @@
 <template>
   
-  <div class="map-section">
-   <gmap-map :center="center" :zoom="18" style="width: 100%; height: 75%" :options="{
+  <div class="map-section" >
+   <gmap-map :center="center" :zoom="18" style="width: 100%; height: 100%" :options="{
       zoomControl: true,
       scaleControl: true,
       mapTypeControl: true,
@@ -268,9 +268,8 @@ beforeDestroy() {
 </script>
 <style scoped>
 .map-section {
-height: 95vh;
-position: relative;
-overflow: hidden;
+height: 100%;
+width: 100%;
 }
 .map-info-window {
 position: absolute;

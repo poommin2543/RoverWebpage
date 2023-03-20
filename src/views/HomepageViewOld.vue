@@ -3,8 +3,8 @@
         <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" permanent color="primary"
             width="250">
             <!-- <v-icon>home</v-icon> -->
-            <v-card width="100%" height="10%" color="red" class="">
-                <!-- <v-row no-gutters>
+            <v-card width="100%" height="6%" color="red" class="">
+                <v-row no-gutters>
                     <v-card cols="2">
                         <v-sheet class="pl-5 mt-4">
                             <v-avatar color="blue">
@@ -17,42 +17,35 @@
                             <p>Admin</p>
                         </v-sheet>
                     </v-card>
-                </v-row> -->
+                </v-row>
             </v-card>
-            <v-card width="100%" height="25%" color="blue" class="pa-3 ma-0">
-                <v-card width="100%" height="100%" color="green" class="pa-0 ma-0">
-                    <!-- <p class="pt-3 ml-3">RoverList</p> -->
-                    <v-card width="100%" height="100%" color="white" class="pa-0 mt-0 scrolling rounded-3">
-                        <v-list>
-                            <v-list-item-group v-model="model" mandatory color="indigo">
-                                <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
-                                    <v-list-item-icon>
-                                        <v-icon v-text="item.icon"></v-icon>
-                                    </v-list-item-icon>
-                                    <v-list-item-content>
-                                        <v-list-item-title v-text="item.text"></v-list-item-title>
-                                    </v-list-item-content>
-                                    <v-list-item-icon>
-                                        <v-icon :color="item.status == 'offline' ? 'red' : 'green'">circle</v-icon>
-                                    </v-list-item-icon>
-                                </v-list-item>
-                            </v-list-item-group>
-                        </v-list>
-                    </v-card>
+            <v-card width="100%" height="25%" color="blue" class="pa-0 ma-0">
+                <p class="pt-3 ml-3">RoverList</p>
+                <v-card width="90%" height="85%" color="white" class="pa-0 ma-3 mt-n4 scrolling rounded-3">
+                    <v-list>
+                        <v-list-item-group v-model="model" mandatory color="indigo">
+                            <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
 
+                                <v-list-item-icon>
+                                    <v-icon v-text="item.icon"></v-icon>
+                                </v-list-item-icon>
+                                <v-list-item-content>
+                                    <v-list-item-title v-text="item.text"></v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-icon>
+                                    <!-- <v-icon :color="green">circle</v-icon> -->
+                                    <v-icon :color="item.status == 'offline' ? 'red' : 'green'">circle</v-icon>
+                                </v-list-item-icon>
+                            </v-list-item>
+                        </v-list-item-group>
+                    </v-list>
                 </v-card>
             </v-card>
-            <v-card width="100%" height="25%" color="red" class="pa-3 ma-0">
-            <v-card width="100%" height="100%" color="red" class="">
-
-            </v-card>
-
-            </v-card>
-            <!-- <v-card width="100%" height="25%" color="red" class="">
+            <v-card width="100%" height="24%" color="red" class="">
                 <p class="pt-1 ml-3">Status</p>
                 <v-card width="90%" height="86%" color="blue" class="pa-0 ma-3 ">
-                    <v-card width="89%" height="93%" color="orange" class="pa-0 ma-3">
-
+                    <v-card width="89%" height="93%" color="orange" class="pa-0 ma-3"> 
+                        
                         <div width="100%" height="100%" class="bgg">
                             <v-card class="pa-0 ml-3 mt-n4" width="110px" color="white" flat>
                                 Rover Status
@@ -101,24 +94,25 @@
                     </v-card>
                 </v-card>
 
-            </v-card> -->
+            </v-card>
             <v-card width="100%" height="20%" color="blue" class="">
                 <p class="pt-4 ml-3">RoverMode</p>
                 <v-card width="90%" height="70%" color="white" class="pa-0 ma-3 mt-n4">
-                    <v-card width="100%" height="33%" color="red" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl" width="75%" color="black" outlined class="pt-0 pa-0 mt-2"
+                    <v-card width="100%" height="33%" color="red" class="pb-0 mt-0">
+                        <v-btn v-if="isActiveOpencontorl" color="black" outlined class="pl-16 pr-16 ml-6 mt-3"
                             @click="clickAuto">
                             Auto
                         </v-btn>
                     </v-card>
-                    <v-card width="100%" height="33%" color="green" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="black" outlined
-                            @click="clickDoor">
+                    <v-card width="100%" height="33%" color="green" class="pt-0 pb-0 mt-0">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" color="black" outlined
+                            class="pl-16 pr-16 ml-6 mt-0" @click="clickDoor">
                             Door
                         </v-btn>
                     </v-card>
                     <v-card width="100%" height="33%" color="yellow" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn width="75%" color="red" class="pt-0 pa-0 mt-n2" @click="clickJoy">
+                        <v-btn width="75%" color="red" 
+                            @click="clickJoy">
                             Joy
                         </v-btn>
                     </v-card>
@@ -128,37 +122,16 @@
             </v-card>
         </v-navigation-drawer>
         <v-content class="fill-height">
-            <v-card width="100%" flat height="100%" color="red" class="rounded-0">
-                <v-card width="100%" flat height="25%" color="blue" class="rounded-0">
-
-                </v-card>
-                <v-card width="100%" flat height="75%" color="black" class="rounded-0">
-                    <Map></Map>
-                </v-card>
-                <!-- <v-row no-gutters>
-                    <v-card cols="2">
-                        <v-sheet class="pl-5 mt-4">
-                            <v-avatar color="blue">
-                                <span class="text-h5">NP</span>
-                            </v-avatar>
-                        </v-sheet>
-                    </v-card>
-                    <v-card>
-                        <v-sheet class="pl-6 mt-6 ">
-                            <p>Admin</p>
-                        </v-sheet>
-                    </v-card>
-                </v-row> -->
-            </v-card>
-            <!-- <v-card width="100%" height="20%" color="black" class="rounded-0 justify-center">
+            <v-card width="100%" height="20%" color="black" class="rounded-0 justify-center">
             <v-card-actions width="80%" height="100%" color="while" class="justify-center pl-n5">
+                <!-- <img v-if="isActiveOpencontorl && isActiveDoor" src="../assets/img/template.png" class="img-fluid" alt="Responsive image"> -->
                 <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
                 playsinline width="1280px" height="240px"></video>
             </v-card-actions>
             </v-card>
             <v-card width="100%" height="70%" color="blue" class="rounded-0">
                 <Map></Map>
-            </v-card> -->
+            </v-card>
         </v-content>
     </v-container>
 </template>
@@ -176,8 +149,8 @@ if (window.location.protocol === 'http:') {
 var dictRover = {};
 export default {
     components: {
-        Map,
-        // Stream
+      Map,
+      // Stream
     },
     data() {
         return {
@@ -196,10 +169,10 @@ export default {
                     status: true,
                 },
             ],
-            isActiveJoy: true,
-            isActiveDoor: true,
+            isActiveJoy: false,
+            isActiveDoor: false,
             isOpenDoor: false,
-            isActiveOpencontorl: true,
+            isActiveOpencontorl: false,
             StatusDoor: false,
             namerover: "N/a",
             StatusRover: "N/a",
@@ -355,7 +328,7 @@ export default {
                     if (key == 'idcam') {
                         // console.log(`${key}: ${value}`);
                         this.idcamera = value
-
+                        
                     }
                     if (key == 'door') {
                         // console.log(`${key}: ${value}`);
@@ -489,150 +462,150 @@ export default {
             })
         },
         //Stream
-        connect(server) {
-            this.janus = new Janus({
-                server,
-                // Call success callback
-                success: () => {
-                    console.log("Connected")
-                    this.attachPlugin()
+      connect(server) {
+        this.janus = new Janus({
+          server,
+          // Call success callback
+          success: () => {
+            console.log("Connected")
+            this.attachPlugin()
+          },
+          // Call error callback 
+          error: (error) => {
+            console.log("Error")
+            this.onError('Failed to connect janus server', error)
+          },
+          // Call destroyed callback
+          destroyed: () => {
+            console.log("Destroyed")
+            window.location.reload()
+          }
+        })
+      },
+      attachPlugin() {
+        this.janus.attach({
+          plugin: "janus.plugin.streaming",
+          opaqueId: 'thisisopaqueid',
+          success: (pluginHandle) => {
+            this.plugin = pluginHandle
+            console.log("getBitrate : ", this.plugin.getBitrate())
+            // this.updateStreamsList()
+          },
+          error: (error) => {
+            this.onError('Error attaching plugin... ', error)
+          },
+          iceState: (state) => {
+            console.log("ICE state changed to ", state)
+          },
+          webrtcState: (on) => {
+            console.log("Janus says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now")
+          },
+          slowLink: (uplink, lost, mid) => {
+            console.log("Janus reports problems " + (uplink ? "sending" : "receiving") +
+              " packets on mid " + mid + " (" + lost + " lost packets)")
+          },
+          onmessage: (msg, jsep) => {
+            // Receive status of plugin streaming 
+            console.log(" ::: Got a message :::", msg)
+            let result = msg.result
+            if (result) {
+              if (result.status) {
+                this.status = result.status
+              }
+            }
+            // Handle msg error status 
+            else if (msg.error) {
+              this.onError(msg.error)
+              this.stop()
+              return;
+            }
+            if (jsep) {
+              Janus.debug("Handling SDP as Well... ", jsep)
+              let stereo = (jsep.sdp.indexOf("stereo=1") !== -1)
+              this.plugin.createAnswer({
+                jsep: jsep,
+                media: {
+                  audioSend: false,
+                  videoSend: false,
+                  data: true
                 },
-                // Call error callback 
+                customizeSdp: (jsep) => {
+                  if (stereo && jsep.sdp.indexOf("stereo=1") == -1) {
+                    jsep.sdp = jsep.sdp.replace("useinbandfec=1", "useinbandfec=1;stereo=1")
+                  }
+                },
+                success: (jsep) => {
+                  Janus.debug("Got SDP!", jsep)
+                  let body = { request: "start" }
+                  this.plugin.send({
+                    message: body,
+                    jsep: jsep
+                  })
+                },
                 error: (error) => {
-                    console.log("Error")
-                    this.onError('Failed to connect janus server', error)
-                },
-                // Call destroyed callback
-                destroyed: () => {
-                    console.log("Destroyed")
-                    window.location.reload()
+                  this.onError("WebRTC Error: ", error)
+                  alert("WebRTC error... ", error)
                 }
-            })
-        },
-        attachPlugin() {
-            this.janus.attach({
-                plugin: "janus.plugin.streaming",
-                opaqueId: 'thisisopaqueid',
-                success: (pluginHandle) => {
-                    this.plugin = pluginHandle
-                    console.log("getBitrate : ", this.plugin.getBitrate())
-                    // this.updateStreamsList()
-                },
-                error: (error) => {
-                    this.onError('Error attaching plugin... ', error)
-                },
-                iceState: (state) => {
-                    console.log("ICE state changed to ", state)
-                },
-                webrtcState: (on) => {
-                    console.log("Janus says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now")
-                },
-                slowLink: (uplink, lost, mid) => {
-                    console.log("Janus reports problems " + (uplink ? "sending" : "receiving") +
-                        " packets on mid " + mid + " (" + lost + " lost packets)")
-                },
-                onmessage: (msg, jsep) => {
-                    // Receive status of plugin streaming 
-                    console.log(" ::: Got a message :::", msg)
-                    let result = msg.result
-                    if (result) {
-                        if (result.status) {
-                            this.status = result.status
-                        }
-                    }
-                    // Handle msg error status 
-                    else if (msg.error) {
-                        this.onError(msg.error)
-                        this.stop()
-                        return;
-                    }
-                    if (jsep) {
-                        Janus.debug("Handling SDP as Well... ", jsep)
-                        let stereo = (jsep.sdp.indexOf("stereo=1") !== -1)
-                        this.plugin.createAnswer({
-                            jsep: jsep,
-                            media: {
-                                audioSend: false,
-                                videoSend: false,
-                                data: true
-                            },
-                            customizeSdp: (jsep) => {
-                                if (stereo && jsep.sdp.indexOf("stereo=1") == -1) {
-                                    jsep.sdp = jsep.sdp.replace("useinbandfec=1", "useinbandfec=1;stereo=1")
-                                }
-                            },
-                            success: (jsep) => {
-                                Janus.debug("Got SDP!", jsep)
-                                let body = { request: "start" }
-                                this.plugin.send({
-                                    message: body,
-                                    jsep: jsep
-                                })
-                            },
-                            error: (error) => {
-                                this.onError("WebRTC Error: ", error)
-                                alert("WebRTC error... ", error)
-                            }
-                        })
-                    }
-                },
-                onremotetrack: (track, mid, on) => {
-                    Janus.debug("Remote track (mid=" + mid + ") " + (on ? "added" : "removed") + ":", track)
-                    // New track was added 
-                    if (track.kind === "video") {
-                        this.remoteVideos++
-                        this.stream = new MediaStream()
-                        this.stream.addTrack(track.clone())
-                        this.remoteTracks.mid = this.stream
-                        Janus.log("Created remote audio stream:", this.stream)
-                    }
-                },
-                oncleanup: () => {
-                    this.onCleanup()
-                }
-            })
-        },
-        updateStreamsList() {
-            this.plugin.send({
-                message: { request: "list" },
-                success: (result) => {
-                    if (!result) {
-                        this.onError("Got no response to our query for available streams.")
-                    }
-                    console.log("Updating StreamList....", result)
-                    this.streamList.options = result.list
-                    if (result.list.length) {
-                        this.streamList.selected = this.streamList.options[0].id
-                    }
-                }
-            })
-        },
-        start() {
-            // this.plugin.send({ message: { request: "watch", id: this.streamList.selected } })
-            this.plugin.send({ message: { request: "watch", id: this.idcamera } })
+              })
+            }
+          },
+          onremotetrack: (track, mid, on) => {
+            Janus.debug("Remote track (mid=" + mid + ") " + (on ? "added" : "removed") + ":", track)
+            // New track was added 
+            if (track.kind === "video") {
+              this.remoteVideos++
+              this.stream = new MediaStream()
+              this.stream.addTrack(track.clone())
+              this.remoteTracks.mid = this.stream
+              Janus.log("Created remote audio stream:", this.stream)
+            }
+          },
+          oncleanup: () => {
+            this.onCleanup()
+          }
+        })
+      },
+      updateStreamsList() {
+        this.plugin.send({
+          message: { request: "list" },
+          success: (result) => {
+            if (!result) {
+              this.onError("Got no response to our query for available streams.")
+            }
+            console.log("Updating StreamList....", result)
+            this.streamList.options = result.list
+            if (result.list.length) {
+              this.streamList.selected = this.streamList.options[0].id
+            }
+          }
+        })
+      },
+      start() {
+        // this.plugin.send({ message: { request: "watch", id: this.streamList.selected } })
+        this.plugin.send({ message: { request: "watch", id: this.idcamera } })
 
-        },
-        stop() {
-            this.plugin.send({ message: { request: "stop" } })
-            this.plugin.hangup()
-        },
-        // Reset data.params to null 
-        onCleanup() {
-            Janus.log(" ::: Got a cleanup notification :::");
-            this.stream = null
-            this.status = null
-            this.remoteTracks = {}
-            this.remoteVideos = 0
-            this.error = null
-        },
-        // Handle on error event occur
-        onError(message, error = '') {
-            Janus.error(message, error)
-            this.error = message + error
-            alert(this.error, function () {
-                window.location.reload()
-            })
-        }
+      },
+      stop() {
+        this.plugin.send({ message: { request: "stop" } })
+        this.plugin.hangup()
+      },
+      // Reset data.params to null 
+      onCleanup() {
+        Janus.log(" ::: Got a cleanup notification :::");
+        this.stream = null
+        this.status = null
+        this.remoteTracks = {}
+        this.remoteVideos = 0
+        this.error = null
+      },
+      // Handle on error event occur
+      onError(message, error = '') {
+        Janus.error(message, error)
+        this.error = message + error
+        alert(this.error, function () {
+          window.location.reload()
+        })
+      }
 
 
     },
