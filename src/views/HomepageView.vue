@@ -1,31 +1,31 @@
 <template>
     <v-container fluid class="fill-height ma-0 pa-0">
-        <v-navigation-drawer  height="100%" permanent color="black"
-            width="250">
+        <v-navigation-drawer height="100%" permanent color="black" width="250">
             <!-- <v-icon>home</v-icon> -->
-            <v-card width="100%"  color="black" class="rounded-0 pa-0">
-                
+            <v-card width="100%" color="black" class="rounded-0 pa-0">
+
                 <v-row no-gutters>
-                    <v-card  height="25%" class="mt-5 ml-5" color="black">
-                            <v-avatar color="blue">
-                                <span class="text-h5">AZ</span>
-                            </v-avatar>
+                    <v-card height="25%" class="mt-5 ml-5" color="black">
+                        <v-avatar color="blue">
+                            <span class="text-h5">AZ</span>
+                        </v-avatar>
                     </v-card>
-                    <v-card height="40%" width="100" class="pa-0 mt-5 ml-3" color="black">                        
-                            <p style="color:#fff">Admin</p>                       
-                            <p class="mt-n3" style="color:#fff">Zazazazazaz</p>                       
+                    <v-card height="40%" width="100" class="pa-0 mt-5 ml-3" color="black">
+                        <p style="color:#fff">Admin</p>
+                        <p class="mt-n3" style="color:#fff">Zazazazazaz</p>
                     </v-card>
                 </v-row>
             </v-card>
-            <v-card flat width="100%"  color="black" class="pa-3 ma-0 rounded-5">
-                <v-card width="100%"  color="green" class="pa-0 ma-0">
+            <v-card flat width="100%" color="black" class="pa-3 ma-0 rounded-5">
+                <v-card width="100%" color="green" class="pa-0 ma-0">
                     <!-- <p class="pt-3 ml-3">RoverList</p> -->
-                    <v-card width="100%"  color="white" class="pa-0 mt-0 scrolling rounded-3">
+                    <v-card width="100%" color="white" class="pa-0 mt-0 scrolling rounded-3">
                         <v-list>
                             <v-list-item-group v-model="model" mandatory color="indigo">
                                 <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
                                     <v-list-item-icon>
-                                        <v-icon v-text="item.icon"></v-icon>
+                                        <!-- <v-icon v-text="item.icon"></v-icon> -->
+                                        <v-img  width="30px" height="40px" :src="require('../assets/img/Rovericon.svg')" cover></v-img>
                                     </v-list-item-icon>
                                     <v-list-item-content>
                                         <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -40,10 +40,10 @@
 
                 </v-card>
             </v-card>
-            <v-card width="100%"  color="black" class="pa-3 ma-0 rounded-5">
+            <v-card width="100%" color="black" class="pa-3 ma-0 rounded-5">
                 <v-card width="100%" height="98%" color="black" class="rounded-5">
                     <p class="pt-1 ml-3" style="color:#fff">Status</p>
-                    <v-card flat width="100%"  color="white" class="mt-n3 pt-n3">
+                    <v-card flat width="100%" color="white" class="mt-n3 pt-n3">
                         <v-card flat width="90%" height="90%" color="white" class="ml-3 pt-4">
                             <div width="100%" height="100%" class="bgg">
                                 <v-card class="pa-0 ml-3 mt-n4 text-center" width="110px" color="white" flat>
@@ -94,22 +94,22 @@
                     </v-card>
                 </v-card>
             </v-card>
-            <v-card width="100%"  color="black" class="">
+            <v-card width="100%" color="black" class="">
                 <p class="pt-4 ml-3" style="color:#fff">RoverMode</p>
-                <v-card width="90%"  style="height: 140px" color="black" class="pa-0 ma-3 mt-n4">
+                <v-card width="90%" style="height: 140px" color="black" class="pa-0 ma-3 mt-n4">
                     <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
                         <v-btn v-if="isActiveOpencontorl" width="75%" color="white" outlined class="pt-0 pa-0 mt-2 mb-1"
                             @click="clickAuto">
                             Auto
                         </v-btn>
                     </v-card>
-                    <v-card width="100%"  color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                    <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
                         <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" outlined
                             @click="clickDoor">
                             Door
                         </v-btn>
                     </v-card>
-                    <v-card width="100%"  color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                    <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
                         <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" class="pt-0 pa-0 mt-1"
                             @click="clickJoy">
                             Joy
@@ -117,17 +117,14 @@
                     </v-card>
                 </v-card>
             </v-card>
-            <v-card width="100%"  color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
-                <v-card width="70%"  color="black" class="d-flex justify-center  pt-0 pa-0 ma-0">
-                    <v-img class="FullPage" 
-                    :src="require('../assets/img/class logo.png')"
-                    cover
-                    ></v-img>
+            <v-card width="100%" color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
+                <v-card width="70%" color="black" class="d-flex justify-center  pt-0 pa-0 ma-0">
+                    <v-img class="FullPage" :src="require('../assets/img/Classlogo.svg')" cover></v-img>
                 </v-card>
-                
+
             </v-card>
-            <v-card width="100%"  color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
-                <v-card width="100%"  color="black" class="text-center mt-3 ">
+            <v-card width="100%" color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
+                <v-card width="100%" color="black" class="text-center mt-3 ">
                     <p style="color:#fff">v0.01</p>
                 </v-card>
             </v-card>
@@ -137,7 +134,7 @@
                 <v-card width="100%" flat height="25%" color="black" class="rounded-0 d-flex justify-center">
 
                     <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
-                    playsinline width="1280px" height="240px"></video>
+                        playsinline width="1280px" height="240px"></video>
                 </v-card>
                 <v-card width="100%" flat height="75%" color="black" class="rounded-0">
                     <Map></Map>
@@ -270,14 +267,14 @@ export default {
         // this.doSubscribe()
         this.interval = setInterval(() => this.Checkonline(), 3000);
         //   this.isOpened = this.isMenuOpen
-          Janus.init({
+        Janus.init({
             debug: true,
             dependencies: Janus.useDefaultDependencies(),
             callback: () => {
-              console.log("Connecting to Janus api with server ", JANUS_URL)
-              this.connect(JANUS_URL)
+                console.log("Connecting to Janus api with server ", JANUS_URL)
+                this.connect(JANUS_URL)
             }
-          })
+        })
         // this.dbRef = firebaseApp.database().ref('/')
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
@@ -346,7 +343,7 @@ export default {
                 this.dbRefAutoDoor.off()
             }
             //CheckSteamVideo
-            if(this.status == 'started'){
+            if (this.status == 'started') {
                 this.stop()
             }
 
@@ -382,10 +379,10 @@ export default {
                     if (key == 'idcam') {
                         // console.log(`${key}: ${value}`);
                         this.idcamera = value
-                        if (this.Hisidcamera != this.idcamera){
+                        if (this.Hisidcamera != this.idcamera) {
                             this.start();
                             this.Hisidcamera = this.idcamera
-                            
+
                         }
 
 
@@ -402,7 +399,7 @@ export default {
                 }
             }
             )
-            
+
         },
         Checkonline() {
             // if ((this.timenow() - this.timemqtt) > 0.1) {
