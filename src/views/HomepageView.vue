@@ -134,8 +134,10 @@
         </v-navigation-drawer>
         <v-content class="fill-height">
             <v-card width="100%" flat height="100%" color="red" class="rounded-0">
-                <v-card width="100%" flat height="25%" color="blue" class="rounded-0">
+                <v-card width="100%" flat height="25%" color="black" class="rounded-0 d-flex justify-center">
 
+                    <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
+                    playsinline width="1280px" height="240px"></video>
                 </v-card>
                 <v-card width="100%" flat height="75%" color="black" class="rounded-0">
                     <Map></Map>
@@ -201,10 +203,10 @@ export default {
                     status: true,
                 },
             ],
-            isActiveJoy: true,
-            isActiveDoor: true,
-            isOpenDoor: true,
-            isActiveOpencontorl: true,
+            isActiveJoy: false,
+            isActiveDoor: false,
+            isOpenDoor: false,
+            isActiveOpencontorl: false,
             StatusDoor: false,
             namerover: "N/a",
             StatusRover: "N/a",
@@ -212,6 +214,7 @@ export default {
             Velocity: "N/a",
             DoorStatus: "N/a",
             idcamera: 0,
+            Hisidcamera: 0,
             countRover: 0,
             connection: {
                 protocol: 'ws',
@@ -267,14 +270,14 @@ export default {
         // this.doSubscribe()
         this.interval = setInterval(() => this.Checkonline(), 3000);
         //   this.isOpened = this.isMenuOpen
-        //   Janus.init({
-        //     debug: true,
-        //     dependencies: Janus.useDefaultDependencies(),
-        //     callback: () => {
-        //       console.log("Connecting to Janus api with server ", JANUS_URL)
-        //       this.connect(JANUS_URL)
-        //     }
-        //   })
+          Janus.init({
+            debug: true,
+            dependencies: Janus.useDefaultDependencies(),
+            callback: () => {
+              console.log("Connecting to Janus api with server ", JANUS_URL)
+              this.connect(JANUS_URL)
+            }
+          })
         // this.dbRef = firebaseApp.database().ref('/')
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
@@ -342,6 +345,10 @@ export default {
             if (this.StatusDoor == true) {
                 this.dbRefAutoDoor.off()
             }
+            //CheckSteamVideo
+            if(this.status == 'started'){
+                this.stop()
+            }
 
             //Click button open 
             this.isActiveOpencontorl = true
@@ -375,6 +382,12 @@ export default {
                     if (key == 'idcam') {
                         // console.log(`${key}: ${value}`);
                         this.idcamera = value
+                        if (this.Hisidcamera != this.idcamera){
+                            this.start();
+                            this.Hisidcamera = this.idcamera
+                            
+                        }
+
 
                     }
                     if (key == 'door') {
@@ -389,7 +402,7 @@ export default {
                 }
             }
             )
-            // this.start();
+            
         },
         Checkonline() {
             // if ((this.timenow() - this.timemqtt) > 0.1) {
