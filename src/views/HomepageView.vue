@@ -1,9 +1,9 @@
 <template>
     <v-container fluid class="fill-height ma-0 pa-0">
-        <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" permanent color="primary"
+        <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" permanent color="black"
             width="250">
             <!-- <v-icon>home</v-icon> -->
-            <v-card width="100%" height="10%" color="red" class="">
+            <v-card width="100%" height="10%" color="red" class="rounded-0">
                 <!-- <v-row no-gutters>
                     <v-card cols="2">
                         <v-sheet class="pl-5 mt-4">
@@ -19,7 +19,7 @@
                     </v-card>
                 </v-row> -->
             </v-card>
-            <v-card width="100%" height="25%" color="blue" class="pa-3 ma-0">
+            <v-card flat width="100%" height="25%" color="black" class="pa-3 ma-0 rounded-5">
                 <v-card width="100%" height="100%" color="green" class="pa-0 ma-0">
                     <!-- <p class="pt-3 ml-3">RoverList</p> -->
                     <v-card width="100%" height="100%" color="white" class="pa-0 mt-0 scrolling rounded-3">
@@ -42,89 +42,95 @@
 
                 </v-card>
             </v-card>
-            <v-card width="100%" height="25%" color="red" class="pa-3 ma-0">
-            <v-card width="100%" height="100%" color="red" class="">
+            <v-card width="100%" height="25%" color="black" class="pa-3 ma-0 rounded-5">
+                <v-card width="100%" height="98%" color="black" class="rounded-5">
+                    <p class="pt-1 ml-3" style="color:#fff">Status</p>
+                    <v-card flat width="100%" height="70%" color="white" class="mt-n3 pt-n3">
+                        <v-card flat width="90%" height="90%" color="white" class="ml-3 pt-4">
 
-            </v-card>
-
-            </v-card>
-            <!-- <v-card width="100%" height="25%" color="red" class="">
-                <p class="pt-1 ml-3">Status</p>
-                <v-card width="90%" height="86%" color="blue" class="pa-0 ma-3 ">
-                    <v-card width="89%" height="93%" color="orange" class="pa-0 ma-3">
-
-                        <div width="100%" height="100%" class="bgg">
-                            <v-card class="pa-0 ml-3 mt-n4" width="110px" color="white" flat>
-                                Rover Status
-                            </v-card>
-                            <v-row no-gutters>
-                                <v-col>
-                                    <p class="pl-1 ma-2 ">Rover No.</p>
-                                </v-col>
-                                <v-col>
-                                    <p class="pl-1 ma-2">{{ namerover }}</p>
-                                </v-col>
-                            </v-row>
-                            <v-row no-gutters>
-                                <v-col>
-                                    <p class="pl-1 ml-2 ">Status.</p>
-                                </v-col>
-                                <v-col>
-                                    <p class="pl-1 ml-2">{{ StatusRover }}</p>
-                                </v-col>
-                            </v-row>
-                            <v-row no-gutters>
-                                <v-col>
-                                    <p class="pl-1 ml-2 ">Door.</p>
-                                </v-col>
-                                <v-col>
-                                    <p class="pl-1 ml-2">{{ DoorStatus }}</p>
-                                </v-col>
-                            </v-row>
-                            <v-row no-gutters>
-                                <v-col>
-                                    <p class="pl-1 ml-2 ">Battery.</p>
-                                </v-col>
-                                <v-col>
-                                    <p class="pl-1 ml-2">{{ Battery }}</p>
-                                </v-col>
-                            </v-row>
-                            <v-row no-gutters>
-                                <v-col>
-                                    <p class="pl-1 ml-2 ">Velocity.</p>
-                                </v-col>
-                                <v-col>
-                                    <p class="pl-1 ml-2 text-red">{{ Velocity }}</p>
-                                </v-col>
-                            </v-row>
-                        </div>
+                            <div width="100%" height="100%" class="bgg">
+                                <v-card class="pa-0 ml-3 mt-n4 text-center" width="110px" color="white" flat>
+                                    <span class="text-red">Rover Status.</span>
+                                </v-card>
+                                <v-row no-gutters class="d-flex justify-center pt-0 pa-0 ma-0">
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">Rover No.</p>
+                                    </v-col>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">{{ namerover }}</p>
+                                    </v-col>
+                                </v-row>
+                                <v-row no-gutters>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">Status.</p>
+                                    </v-col>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">{{ StatusRover }}</p>
+                                    </v-col>
+                                </v-row>
+                                <v-row no-gutters>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">Door.</p>
+                                    </v-col>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">{{ DoorStatus }}</p>
+                                    </v-col>
+                                </v-row>
+                                <v-row no-gutters>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">Battery.</p>
+                                    </v-col>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">{{ Battery }}</p>
+                                    </v-col>
+                                </v-row>
+                                <v-row no-gutters>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">Velocity.</p>
+                                    </v-col>
+                                    <v-col>
+                                        <p class="d-flex justify-center pt-0 pa-0 ma-0">{{ Velocity }}</p>
+                                    </v-col>
+                                </v-row>
+                            </div>
+                        </v-card>
                     </v-card>
                 </v-card>
+            </v-card>
 
-            </v-card> -->
-            <v-card width="100%" height="20%" color="blue" class="">
-                <p class="pt-4 ml-3">RoverMode</p>
-                <v-card width="90%" height="70%" color="white" class="pa-0 ma-3 mt-n4">
-                    <v-card width="100%" height="33%" color="red" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl" width="75%" color="black" outlined class="pt-0 pa-0 mt-2"
+            <v-card width="100%" height="20%" color="black" class="">
+                <p class="pt-4 ml-3" style="color:#fff">RoverMode</p>
+                <v-card width="90%" height="70%" color="black" class="pa-0 ma-3 mt-n4">
+                    <v-card width="100%" height="33%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                        <v-btn v-if="isActiveOpencontorl" width="75%" color="white" outlined class="pt-0 pa-0 mt-2"
                             @click="clickAuto">
                             Auto
                         </v-btn>
                     </v-card>
-                    <v-card width="100%" height="33%" color="green" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="black" outlined
+                    <v-card width="100%" height="33%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" outlined
                             @click="clickDoor">
                             Door
                         </v-btn>
                     </v-card>
-                    <v-card width="100%" height="33%" color="yellow" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn width="75%" color="red" class="pt-0 pa-0 mt-n2" @click="clickJoy">
+                    <v-card width="100%" height="33%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" class="pt-0 pa-0 mt-n2"
+                            @click="clickJoy">
                             Joy
                         </v-btn>
                     </v-card>
                 </v-card>
             </v-card>
-            <v-card width="100%" height="20%" color="red" class="">
+            <v-card width="100%" height="20%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                <v-card width="100%" height="100%" color="green" class=" d-flex justify-center pt-0 pa-0 ma-0">
+                    <!-- <v-card width="65%" height="75%" color="black"
+                        class="FullPage pt-0 pa-0 ma-0 ">
+                        <v-img class="FullPage" 
+                        :src="require('../assets/img/class logo.png')"
+                        cover
+                        ></v-img>
+                    </v-card> -->
+                </v-card>
             </v-card>
         </v-navigation-drawer>
         <v-content class="fill-height">
@@ -198,7 +204,7 @@ export default {
             ],
             isActiveJoy: true,
             isActiveDoor: true,
-            isOpenDoor: false,
+            isOpenDoor: true,
             isActiveOpencontorl: true,
             StatusDoor: false,
             namerover: "N/a",
@@ -301,6 +307,16 @@ export default {
     methods: {
         clickAuto() {
             this.isActiveDoor = !this.isActiveDoor
+            this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
+            if (this.isActiveDoor) {
+                this.dbRefAutoBtn.update({ auto: false });
+                // this.dbRefAutoDoor.off()
+            }
+            else {
+                // this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
+                this.dbRefAutoBtn.update({ auto: true });
+                // this.dbRefAutoDoor.off()
+            }
         },
         clickDoor() {
             this.StatusDoor = true
@@ -309,11 +325,13 @@ export default {
             this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
             if (this.isOpenDoor) {
                 this.dbRefAutoDoor.update({ door: false });
+                // this.dbRefAutoDoor.off()
             }
             else {
                 // this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
                 this.dbRefAutoDoor.update({ door: true });
             }
+            // this.dbRefAutoDoor.off()
         },
         clickJoy() {
             this.isActiveJoy = !this.isActiveJoy
@@ -335,6 +353,9 @@ export default {
             }
             console.log(text.text)
             this.namerover = text.text
+            //SetAuto is True
+            this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
+            this.dbRefAutoBtn.update({ auto: true });
             // StatusRover
             this.StatusRover = this.items[dictRover[text.text] - 1].status
             // Firebase
@@ -663,7 +684,8 @@ export default {
     border-radius: 4px;
 }
 
-.textbg {
-    background-color: aqua;
+.FullPage {
+    height: 70%;
+    width: 70%;
 }
 </style>
