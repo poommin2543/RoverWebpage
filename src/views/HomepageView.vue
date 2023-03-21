@@ -1,28 +1,26 @@
 <template>
     <v-container fluid class="fill-height ma-0 pa-0">
-        <v-navigation-drawer image="https://cdn.vuetifyjs.com/images/backgrounds/bg-2.jpg" permanent color="black"
+        <v-navigation-drawer  height="100%" permanent color="black"
             width="250">
             <!-- <v-icon>home</v-icon> -->
-            <v-card width="100%" height="10%" color="red" class="rounded-0">
-                <!-- <v-row no-gutters>
-                    <v-card cols="2">
-                        <v-sheet class="pl-5 mt-4">
+            <v-card width="100%"  color="black" class="rounded-0 pa-0">
+                
+                <v-row no-gutters>
+                    <v-card  height="25%" class="mt-5 ml-5" color="black">
                             <v-avatar color="blue">
-                                <span class="text-h5">NP</span>
+                                <span class="text-h5">AZ</span>
                             </v-avatar>
-                        </v-sheet>
                     </v-card>
-                    <v-card>
-                        <v-sheet class="pl-6 mt-6 ">
-                            <p>Admin</p>
-                        </v-sheet>
+                    <v-card height="40%" width="100" class="pa-0 mt-5 ml-3" color="black">                        
+                            <p style="color:#fff">Admin</p>                       
+                            <p class="mt-n3" style="color:#fff">Zazazazazaz</p>                       
                     </v-card>
-                </v-row> -->
+                </v-row>
             </v-card>
-            <v-card flat width="100%" height="25%" color="black" class="pa-3 ma-0 rounded-5">
-                <v-card width="100%" height="100%" color="green" class="pa-0 ma-0">
+            <v-card flat width="100%"  color="black" class="pa-3 ma-0 rounded-5">
+                <v-card width="100%"  color="green" class="pa-0 ma-0">
                     <!-- <p class="pt-3 ml-3">RoverList</p> -->
-                    <v-card width="100%" height="100%" color="white" class="pa-0 mt-0 scrolling rounded-3">
+                    <v-card width="100%"  color="white" class="pa-0 mt-0 scrolling rounded-3">
                         <v-list>
                             <v-list-item-group v-model="model" mandatory color="indigo">
                                 <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
@@ -42,12 +40,11 @@
 
                 </v-card>
             </v-card>
-            <v-card width="100%" height="25%" color="black" class="pa-3 ma-0 rounded-5">
+            <v-card width="100%"  color="black" class="pa-3 ma-0 rounded-5">
                 <v-card width="100%" height="98%" color="black" class="rounded-5">
                     <p class="pt-1 ml-3" style="color:#fff">Status</p>
-                    <v-card flat width="100%" height="70%" color="white" class="mt-n3 pt-n3">
+                    <v-card flat width="100%"  color="white" class="mt-n3 pt-n3">
                         <v-card flat width="90%" height="90%" color="white" class="ml-3 pt-4">
-
                             <div width="100%" height="100%" class="bgg">
                                 <v-card class="pa-0 ml-3 mt-n4 text-center" width="110px" color="white" flat>
                                     <span class="text-red">Rover Status.</span>
@@ -97,39 +94,41 @@
                     </v-card>
                 </v-card>
             </v-card>
-
-            <v-card width="100%" height="20%" color="black" class="">
+            <v-card width="100%"  color="black" class="">
                 <p class="pt-4 ml-3" style="color:#fff">RoverMode</p>
-                <v-card width="90%" height="70%" color="black" class="pa-0 ma-3 mt-n4">
-                    <v-card width="100%" height="33%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl" width="75%" color="white" outlined class="pt-0 pa-0 mt-2"
+                <v-card width="90%"  style="height: 140px" color="black" class="pa-0 ma-3 mt-n4">
+                    <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                        <v-btn v-if="isActiveOpencontorl" width="75%" color="white" outlined class="pt-0 pa-0 mt-2 mb-1"
                             @click="clickAuto">
                             Auto
                         </v-btn>
                     </v-card>
-                    <v-card width="100%" height="33%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                    <v-card width="100%"  color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
                         <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" outlined
                             @click="clickDoor">
                             Door
                         </v-btn>
                     </v-card>
-                    <v-card width="100%" height="33%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" class="pt-0 pa-0 mt-n2"
+                    <v-card width="100%"  color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" class="pt-0 pa-0 mt-1"
                             @click="clickJoy">
                             Joy
                         </v-btn>
                     </v-card>
                 </v-card>
             </v-card>
-            <v-card width="100%" height="20%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
-                <v-card width="100%" height="100%" color="green" class=" d-flex justify-center pt-0 pa-0 ma-0">
-                    <!-- <v-card width="65%" height="75%" color="black"
-                        class="FullPage pt-0 pa-0 ma-0 ">
-                        <v-img class="FullPage" 
-                        :src="require('../assets/img/class logo.png')"
-                        cover
-                        ></v-img>
-                    </v-card> -->
+            <v-card width="100%"  color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
+                <v-card width="70%"  color="black" class="d-flex justify-center  pt-0 pa-0 ma-0">
+                    <v-img class="FullPage" 
+                    :src="require('../assets/img/class logo.png')"
+                    cover
+                    ></v-img>
+                </v-card>
+                
+            </v-card>
+            <v-card width="100%"  color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
+                <v-card width="100%"  color="black" class="text-center mt-3 ">
+                    <p style="color:#fff">v0.01</p>
                 </v-card>
             </v-card>
         </v-navigation-drawer>
@@ -676,6 +675,7 @@ export default {
 <style>
 .scrolling {
     overflow-y: auto;
+    height: 220px;
 }
 
 .bgg {
