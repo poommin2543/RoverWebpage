@@ -25,7 +25,8 @@
                                 <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
                                     <v-list-item-icon>
                                         <!-- <v-icon v-text="item.icon"></v-icon> -->
-                                        <v-img  width="30px" height="40px" :src="require('../assets/img/Rovericon.svg')" cover></v-img>
+                                        <v-img width="30px" height="40px" :src="require('../assets/img/Rovericon.svg')"
+                                            cover></v-img>
                                     </v-list-item-icon>
                                     <v-list-item-content>
                                         <v-list-item-title v-text="item.text"></v-list-item-title>
@@ -94,13 +95,16 @@
                     </v-card>
                 </v-card>
             </v-card>
+            <!-- :outlined="this.isActiveDoor == true ? 'false':'true'" -->
             <v-card width="100%" color="black" class="">
                 <p class="pt-4 ml-3" style="color:#fff">RoverMode</p>
                 <v-card width="90%" style="height: 140px" color="black" class="pa-0 ma-3 mt-n4">
                     <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl" width="75%" color="white" outlined class="pt-0 pa-0 mt-2 mb-1"
+                        <v-btn v-if="isActiveOpencontorl" width="75%" dark
+                            :color="this.isActiveDoor == true ? 'white' : 'green'"
+                            :outlined="this.isActiveDoor == true ? true : false" class="pt-0 pa-0 mt-2 mb-1"
                             @click="clickAuto">
-                            Auto
+                            {{ this.isActiveDoor == true ? 'manual':'auto' }}
                         </v-btn>
                     </v-card>
                     <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
@@ -110,10 +114,29 @@
                         </v-btn>
                     </v-card>
                     <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" color="white" class="pt-0 pa-0 mt-1"
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" 
+                        :color="this.isActiveJoy == true ? 'red' : 'green'"
+                        class="pt-0 pa-0 mt-1"
                             @click="clickJoy">
                             Joy
                         </v-btn>
+                    </v-card>
+                    <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
+                        <!-- <p class="pt-4 ml-3" style="color:#fff">{{ isActiveJoy }}</p> -->
+                        <v-card v-if="isActiveJoy" width="75%" color="red" class="d-flex justify-center pt-0 pa-0 ma-0">
+                            <!-- <v-icon width="10px" v-gamepad:button-a="aaaa"
+                                v-gamepad:button-a.released="aaaa"></v-icon> -->
+                            <v-icon width="10px" v-gamepad:button-a="pressedA"
+                                v-gamepad:button-a.released="releasedA"></v-icon>
+                            <v-icon type="button" width="20%" v-gamepad:button-x="pressedX"
+                                v-gamepad:button-x.released="releasedX"></v-icon>
+                            <v-icon type="button" width="20%" v-gamepad:button-y="pressedY"
+                                v-gamepad:button-y.released="releasedY"></v-icon>
+                            <v-icon type="button" width="20%" v-gamepad:button-b="pressedB"
+                                v-gamepad:button-b.released="releasedB"></v-icon>
+                            <v-icon type="button" width="20%" v-gamepad:shoulder-left="aaaa"
+                                v-gamepad:shoulder-left.released="aaaa" @click="aaaa"></v-icon>
+                        </v-card>
                     </v-card>
                 </v-card>
             </v-card>
@@ -259,6 +282,12 @@ export default {
             },
             remoteTracks: {},
             remoteVideos: 0,
+            // Joy,
+            textA: "A",
+            textB: "B",
+            textX: "X",
+            textY: "Y",
+            textLB: "Reset",
         }
 
     },
@@ -267,14 +296,14 @@ export default {
         // this.doSubscribe()
         this.interval = setInterval(() => this.Checkonline(), 3000);
         //   this.isOpened = this.isMenuOpen
-        Janus.init({
-            debug: true,
-            dependencies: Janus.useDefaultDependencies(),
-            callback: () => {
-                console.log("Connecting to Janus api with server ", JANUS_URL)
-                this.connect(JANUS_URL)
-            }
-        })
+        // Janus.init({
+        //     debug: true,
+        //     dependencies: Janus.useDefaultDependencies(),
+        //     callback: () => {
+        //         console.log("Connecting to Janus api with server ", JANUS_URL)
+        //         this.connect(JANUS_URL)
+        //     }
+        // })
         // this.dbRef = firebaseApp.database().ref('/')
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
@@ -308,12 +337,12 @@ export default {
             this.isActiveDoor = !this.isActiveDoor
             this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
             if (this.isActiveDoor) {
-                this.dbRefAutoBtn.update({ auto: false });
+                this.dbRefAutoBtn.update({ auto: true });
                 // this.dbRefAutoDoor.off()
             }
             else {
                 // this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
-                this.dbRefAutoBtn.update({ auto: true });
+                this.dbRefAutoBtn.update({ auto: false });
                 // this.dbRefAutoDoor.off()
             }
         },
@@ -333,10 +362,18 @@ export default {
             // this.dbRefAutoDoor.off()
         },
         clickJoy() {
+            //ActiveJoy
             this.isActiveJoy = !this.isActiveJoy
+            if (this.isActiveJoy === true) {
+                console.log("/" + this.namerover + '/control')
+                this.dbRefJoystick = firebaseApp.database().ref("/" + this.namerover + '/control')
+                this.refJoystick == true
+            }
         },
         updateSelected(text) {
             this.dbRef.off()
+            //SetJoy Off
+            this.ActiveJoy = false
             // this.doUnSubscribe()
             //check DbStatusDoor
             if (this.StatusDoor == true) {
@@ -357,8 +394,8 @@ export default {
             console.log(text.text)
             this.namerover = text.text
             //SetAuto is True
-            this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
-            this.dbRefAutoBtn.update({ auto: true });
+            // this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
+            // this.dbRefAutoBtn.update({ auto: true });
             // StatusRover
             this.StatusRover = this.items[dictRover[text.text] - 1].status
             // Firebase
@@ -379,11 +416,11 @@ export default {
                     if (key == 'idcam') {
                         // console.log(`${key}: ${value}`);
                         this.idcamera = value
-                        if (this.Hisidcamera != this.idcamera) {
-                            this.start();
-                            this.Hisidcamera = this.idcamera
+                        // if (this.Hisidcamera != this.idcamera) {
+                        //     this.start();
+                        //     this.Hisidcamera = this.idcamera
 
-                        }
+                        // }
 
 
                     }
@@ -396,6 +433,16 @@ export default {
                             this.DoorStatus = "Close"
                         }
                     }
+                    if (key == 'auto') {
+                        // console.log(`${key}: ${value}`);
+                        if (value == true) {
+                            this.isActiveDoor = true
+                        }
+                        else {
+                            this.isActiveDoor = false
+                        }
+                    }
+
                 }
             }
             )
@@ -662,6 +709,105 @@ export default {
             alert(this.error, function () {
                 window.location.reload()
             })
+        },
+        //Joy
+        pressedA(e) {
+            this.textA = "Click";
+            console.log(`pressA`, e);
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 1,
+                right: 0,
+                left: 0
+            });
+        },
+        releasedA() {
+            this.textA = "A";
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        pressedX(e) {
+            this.textX = "Click";
+            console.log(`pressX`, e);
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 1
+            });
+        },
+        releasedX() {
+            this.textX = "X";
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        pressedY(e) {
+            this.textY = "Click";
+            console.log(`pressY`, e);
+            this.dbRefJoystick.set({
+                forword: 1,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        releasedY() {
+            this.textY = "Y";
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        pressedB(e) {
+            this.textB = "Click";
+            console.log(`pressB`, e);
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 1,
+                left: 0
+            });
+        },
+        releasedB() {
+            this.textB = "B";
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        pressedReset(e) {
+            this.textLB = "Click";
+            console.log(`pressLB`, e);
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        releasedReset() {
+            this.textLB = "Reset";
+            this.dbRefJoystick.set({
+                forword: 0,
+                backword: 0,
+                right: 0,
+                left: 0
+            });
+        },
+        aaaa() {
+            console.log("nnnnnnnnnn+n+n+nnnnnn")
         }
 
 
@@ -679,7 +825,8 @@ export default {
         this.dbRef.off()
         this.dbStatus.off()
         // this.dbRef1.off()
-    }
+    },
+
 }
 </script>
 <style>
