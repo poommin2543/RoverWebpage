@@ -25,7 +25,7 @@
                                 <v-list-item v-for="(item, i) in items" :key="i" @click="updateSelected(item)">
                                     <v-list-item-icon>
                                         <!-- <v-icon v-text="item.icon"></v-icon> -->
-                                        <v-img width="30px" height="40px" :src="require('../assets/img/Rovericon.svg')"
+                                        <v-img width="30px" height="20px" :src="require('../assets/img/Rovericon.svg')"
                                             cover></v-img>
                                     </v-list-item-icon>
                                     <v-list-item-content>
@@ -153,7 +153,7 @@
             </v-card>
         </v-navigation-drawer>
         <v-content class="fill-height">
-            <v-card width="100%" flat height="100%" color="red" class="rounded-0">
+            <v-card v-if="mapState == true" width="100%" flat height="100%" color="red" class="rounded-0">
                 <v-card width="100%" flat height="25%" color="black" class="rounded-0 d-flex justify-center">
 
                     <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
@@ -162,35 +162,22 @@
                 <v-card width="100%" flat height="75%" color="black" class="rounded-0">
                     <Map></Map>
                 </v-card>
-                <!-- <v-row no-gutters>
-                    <v-card cols="2">
-                        <v-sheet class="pl-5 mt-4">
-                            <v-avatar color="blue">
-                                <span class="text-h5">NP</span>
-                            </v-avatar>
-                        </v-sheet>
-                    </v-card>
-                    <v-card>
-                        <v-sheet class="pl-6 mt-6 ">
-                            <p>Admin</p>
-                        </v-sheet>
-                    </v-card>
-                </v-row> -->
+                
             </v-card>
-            <!-- <v-card width="100%" height="20%" color="black" class="rounded-0 justify-center">
-            <v-card-actions width="80%" height="100%" color="while" class="justify-center pl-n5">
-                <video v-if="status == 'started'" autoplay="autoplay" :srcObject.prop="stream" ref="videoStream"
-                playsinline width="1280px" height="240px"></video>
-            </v-card-actions>
+            <v-card v-if="mapState == false" width="100%" flat height="100%" color="red" class="rounded-0">
+               
+                <v-card width="100%" flat height="100%" color="black" class="rounded-0">
+                    <MapAll></MapAll>
+                </v-card>
+                
             </v-card>
-            <v-card width="100%" height="70%" color="blue" class="rounded-0">
-                <Map></Map>
-            </v-card> -->
+            
         </v-content>
     </v-container>
 </template>
 <script>
 import Map from "@/components/Map.vue"
+import MapAll from "@/components/MapAllRover.vue"
 import firebaseApp from '@/plugins/firebase'
 import mqtt from 'mqtt/dist/mqtt'
 import { Janus } from 'janus-gateway'
@@ -204,6 +191,7 @@ var dictRover = {};
 export default {
     components: {
         Map,
+        MapAll,
         // Stream
     },
     data() {
@@ -236,6 +224,7 @@ export default {
             idcamera: 0,
             Hisidcamera: 0,
             countRover: 0,
+            mapState:false,
             connection: {
                 protocol: 'ws',
                 host: '34.143.225.243',
@@ -335,6 +324,8 @@ export default {
     methods: {
         clickAuto() {
             this.isActiveDoor = !this.isActiveDoor
+            //SetJoy Off
+            this.isActiveJoy = false
             this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
             if (this.isActiveDoor) {
                 this.dbRefAutoBtn.update({ auto: true });
@@ -372,6 +363,8 @@ export default {
         },
         updateSelected(text) {
             this.dbRef.off()
+            //open Map and VideO
+            this.mapState = true
             //SetJoy Off
             this.ActiveJoy = false
             // this.doUnSubscribe()

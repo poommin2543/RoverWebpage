@@ -8,7 +8,11 @@ const routes = [
     {
         path: '/',
         name: 'homepageView',
-        component: homepageView
+        component: homepageView,
+        meta: {
+            title: "Login",
+            icon:"../assets/img/Rovericon.svg" 
+          }
     },
     
 ]
