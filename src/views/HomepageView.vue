@@ -167,7 +167,9 @@
             <v-card v-if="mapState == false" width="100%" flat height="100%" color="red" class="rounded-0">
                
                 <v-card width="100%" flat height="100%" color="black" class="rounded-0">
-                    <MapAll></MapAll>
+                    <MapAll :propC="namerover">
+                        
+                    </MapAll>
                 </v-card>
                 
             </v-card>
@@ -181,12 +183,12 @@ import MapAll from "@/components/MapAllRover.vue"
 import firebaseApp from '@/plugins/firebase'
 import mqtt from 'mqtt/dist/mqtt'
 import { Janus } from 'janus-gateway'
-let JANUS_URL = 'https://34.143.225.243:8089/janus'
-if (window.location.protocol === 'http:') {
-    // console.log(JANUS_URL)
-    JANUS_URL = 'http://103.82.249.178:8088/janus'
-    console.log(JANUS_URL)
-}
+// let JANUS_URL = 'https://34.143.225.243:8089/janus'
+// if (window.location.protocol === 'http:') {
+//     // console.log(JANUS_URL)
+//     JANUS_URL = 'http://103.82.249.178:8088/janus'
+//     // console.log(JANUS_URL)
+// }
 var dictRover = {};
 export default {
     components: {
@@ -298,8 +300,8 @@ export default {
             // console.log(ss.val());
             this.items = []
             // this.items.remove()
-            for (const [key, value] of Object.entries(ss.val())) {
-                console.log(`${key}: ${value}`);
+            for (const [key] of Object.entries(ss.val())) {
+                // console.log(`${key}: ${value}`);
 
                 this.countRover++;
                 dictRover[key] = this.countRover;
