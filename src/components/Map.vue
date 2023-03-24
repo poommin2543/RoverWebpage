@@ -26,6 +26,7 @@
 
 <script>
 import firebaseApp from '@/plugins/firebase'
+import $ from "jquery";
 var la = 14.875811571268388;
 var long = 102.01502828868293;
 var la_User = 14.875811571268388;
@@ -53,7 +54,7 @@ export default {
       isActive: true,
       namerover: null,
       // NameRover: localStorage.getItem("name-Rover"),
-      
+      rotatestatus:null,
       user: {
         username: 'matt'
       },
@@ -100,17 +101,28 @@ mounted() {
   this.StartgetLocation(this.namerover,this.namerover)
   console.log(this.namerover +"55555555")
   this.setLocationLatLng();
+  // let i = 0;
+  // setInterval(() => {
+  //   $(`img[src="${iconCar}"]`).css(
+  //     '-webkit-transform', 'rotate(' + i + 'deg)',
+  //     '-moz-transform', 'rotate(' + i + 'deg)',
+  //     '-ms-transform', 'rotate(' + i + 'deg)',
+  //     'transform', 'rotate(' + i + 'deg)');
+  //     console.log(i)
+  //   i += 90;
+  // }, 1000);
   
   
 },
 methods: {
  StartgetLocation(rovername,old){
   console.log(rovername,old)
-  // if(old != 'N/a'){
-  //   // console.log(rovername,old)
-  //   this.dbRefRover.off()
-  //   this.dbRefUser.off()
-  // }
+  if(rovername != old){
+    // console.log(rovername,old)
+    this.dbRefRover.off()
+    this.dbRefUser.off()
+    this.rotateRover(0)
+  }
   console.log(rovername,old)
   this.dbRefRover = firebaseApp.database().ref(rovername+'/location/rover')
   this.dbRefUser = firebaseApp.database().ref(rovername+'/location/user')
@@ -119,13 +131,20 @@ methods: {
     for (const [key, value] of Object.entries(ss.val())) {
       if (key == "latitude") {
         this.latitude = value
-        console.log(`${key}: ${value}`);
+        // console.log(`${key}: ${value}`);
         la = value;
         
       }
+      if (key == "rotate") {
+        this.rotatestatus = value
+        console.log(`${key}: ${value}`);
+        this.rotateRover(this.rotatestatus)
+        
+       
+      }
       if (key == "longitude") {
         this.longitude = value
-        console.log(`${key}: ${value}`);
+        // console.log(`${key}: ${value}`);
         long = value;
        
       }
@@ -197,6 +216,13 @@ methods: {
     }
     
   },
+  rotateRover(rotate) {
+        $(`img[src="${iconCar}"]`).css(
+            {'-webkit-transform' : 'rotate('+ rotate +'deg)',
+       '-moz-transform' : 'rotate('+ rotate +'deg)',
+       '-ms-transform' : 'rotate('+ rotate +'deg)',
+       'transform' : 'rotate('+ rotate +'deg)'});
+        },
   getPosition: function (marker) {
     return {
       lat: parseFloat(marker.lat),
