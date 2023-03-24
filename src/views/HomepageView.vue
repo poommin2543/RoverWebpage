@@ -104,7 +104,7 @@
                             :color="this.isActiveDoor == true ? 'white' : 'green'"
                             :outlined="this.isActiveDoor == true ? true : false" class="pt-0 pa-0 mt-2 mb-1"
                             @click="clickAuto">
-                            {{ this.isActiveDoor == true ? 'manual':'auto' }}
+                            {{ this.isActiveDoor == true ? 'manual' : 'auto' }}
                         </v-btn>
                     </v-card>
                     <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
@@ -114,10 +114,8 @@
                         </v-btn>
                     </v-card>
                     <v-card width="100%" color="black" class="d-flex justify-center pt-0 pa-0 ma-0">
-                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%" 
-                        :color="this.isActiveJoy == true ? 'red' : 'green'"
-                        class="pt-0 pa-0 mt-1"
-                            @click="clickJoy">
+                        <v-btn v-if="isActiveOpencontorl && isActiveDoor" width="75%"
+                            :color="this.isActiveJoy == true ? 'red' : 'green'" class="pt-0 pa-0 mt-1" @click="clickJoy">
                             Joy
                         </v-btn>
                     </v-card>
@@ -142,7 +140,8 @@
             </v-card>
             <v-card width="100%" color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
                 <v-card width="70%" color="black" class="d-flex justify-center  pt-0 pa-0 ma-0">
-                    <v-img class="FullPage" :src="require('../assets/img/Classlogo.svg')" cover></v-img>
+                    <v-img class="FullPage" :src="require('../assets/img/Classlogo.svg')" cover
+                    @click="reloadPage"></v-img>
                 </v-card>
 
             </v-card>
@@ -160,20 +159,20 @@
                         playsinline width="1280px" height="240px"></video>
                 </v-card>
                 <v-card width="100%" flat height="75%" color="black" class="rounded-0">
-                    <Map></Map>
+                    <Map :propNameRover="namerover"></Map>
                 </v-card>
-                
+
             </v-card>
             <v-card v-if="mapState == false" width="100%" flat height="100%" color="red" class="rounded-0">
-               
+
                 <v-card width="100%" flat height="100%" color="black" class="rounded-0">
                     <MapAll :propC="namerover">
-                        
+
                     </MapAll>
                 </v-card>
-                
+
             </v-card>
-            
+
         </v-content>
     </v-container>
 </template>
@@ -226,7 +225,7 @@ export default {
             idcamera: 0,
             Hisidcamera: 0,
             countRover: 0,
-            mapState:false,
+            mapState: false,
             connection: {
                 protocol: 'ws',
                 host: '34.143.225.243',
@@ -324,6 +323,9 @@ export default {
         // this.dbRef.off()
     },
     methods: {
+        reloadPage() {
+            window.location.reload();
+        },
         clickAuto() {
             this.isActiveDoor = !this.isActiveDoor
             //SetJoy Off
@@ -358,7 +360,7 @@ export default {
             //ActiveJoy
             this.isActiveJoy = !this.isActiveJoy
             if (this.isActiveJoy === true) {
-                console.log("/" + this.namerover + '/control')
+                // console.log("/" + this.namerover + '/control')
                 this.dbRefJoystick = firebaseApp.database().ref("/" + this.namerover + '/control')
                 this.refJoystick == true
             }
@@ -366,7 +368,7 @@ export default {
         updateSelected(text) {
             this.dbRef.off()
             //open Map and VideO
-            this.mapState = true
+            
             //SetJoy Off
             this.ActiveJoy = false
             // this.doUnSubscribe()
@@ -388,6 +390,9 @@ export default {
             }
             console.log(text.text)
             this.namerover = text.text
+            // localStorage.setItem(this.namerover)
+            localStorage.setItem("Name-rover", this.namerover);
+            this.mapState = true
             //SetAuto is True
             // this.dbRefAutoBtn = firebaseApp.database().ref("/" + this.namerover + '/status')
             // this.dbRefAutoBtn.update({ auto: true });
@@ -507,7 +512,7 @@ export default {
                 if (this.client.on) {
                     this.client.on('connect', () => {
                         this.connecting = false
-                        console.log('Connection succeeded!')
+                        // console.log('Connection succeeded!')
                     })
                     this.client.on('reconnect', this.handleOnReConnect)
                     this.client.on('error', error => {
@@ -671,7 +676,7 @@ export default {
                     if (!result) {
                         this.onError("Got no response to our query for available streams.")
                     }
-                    console.log("Updating StreamList....", result)
+                    // console.log("Updating StreamList....", result)
                     this.streamList.options = result.list
                     if (result.list.length) {
                         this.streamList.selected = this.streamList.options[0].id
@@ -801,9 +806,7 @@ export default {
                 left: 0
             });
         },
-        aaaa() {
-            console.log("nnnnnnnnnn+n+n+nnnnnn")
-        }
+        
 
 
     },
@@ -815,7 +818,7 @@ export default {
         // this.dbRef1 = firebaseApp.database().ref('Rover1/location/user')
     },
     beforeDestroy() {
-        console.log("beforeDestroy()");
+        // console.log("beforeDestroy()");
         // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
         this.dbRef.off()
         this.dbStatus.off()

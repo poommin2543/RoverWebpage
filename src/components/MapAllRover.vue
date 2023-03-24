@@ -1,6 +1,6 @@
 <template>
   <div class="map-section">
-    <v-btn @click="noom">Click</v-btn>
+    <!-- <v-btn @click="noom">Click</v-btn> -->
     <gmap-map :center="center" :zoom="17" style="width: 100%; height: 100%" :options="{
       zoomControl: true,
       scaleControl: true,
@@ -17,8 +17,10 @@
       scrollwheel: true,
     }">
 
+      <!-- <gmap-marker v-for="(item, key) in coordinates" :key="key" :position="getPosition(item)" :clickable="true"
+        :icon="getMarkers1(key)" @click="toggleInfo(item, key)"></gmap-marker> -->
       <gmap-marker v-for="(item, key) in coordinates" :key="key" :position="getPosition(item)" :clickable="true"
-        :icon="getMarkers1(key)" @click="toggleInfo(item, key)"></gmap-marker>
+        :icon="iconCar" @click="toggleInfo(item, key)"></gmap-marker>
     </gmap-map>
 
   </div>
@@ -26,6 +28,10 @@
 
 <script>
 import firebaseApp from '@/plugins/firebase'
+// import $ from "jquery";
+let iconCar = require('../assets/img/class_front.png');
+let mapMarkerActive = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
+let iconUser = "https://i.postimg.cc/bNC9tsGz/icons8-iphone-se-80.png";
 
 export default {
   name: "MapShow",
@@ -42,10 +48,7 @@ export default {
 
   },
   data: function () {
-    let iconCar = require('../assets/img/class_front.png');
-    let mapMarkerActive = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
-    let iconUser = "https://i.postimg.cc/bNC9tsGz/icons8-iphone-se-80.png";
-
+    
     return {
       readData: null,
       // mapMarker,
@@ -94,6 +97,16 @@ export default {
 
   },
   mounted() {
+    // let i = 0;
+    // setInterval(() => {
+    //   $(`img[src="${iconCar}"]`).css(
+    //     '-webkit-transform', 'rotate(' + i + 'deg)',
+    //     '-moz-transform', 'rotate(' + i + 'deg)',
+    //     '-ms-transform', 'rotate(' + i + 'deg)',
+    //     'transform', 'rotate(' + i + 'deg)');
+    //     console.log(i)
+    //   i += 90;
+    // }, 1000);
     // this.interval = setInterval(() => this.nameRoverupdate(), 3000);
     this.dbRef.on('value', ss => {
       let i = 0
@@ -101,10 +114,10 @@ export default {
       for (const [key, value] of Object.entries(ss.val())) {
         console.log(i, key, value)
         try {
-          console.log(value.location.rover.latitude)
-          console.log(value.location.rover.longitude)
+          // console.log(value.location.rover.latitude)
+          // console.log(value.location.rover.longitude)
           this.coordinates[i] = {
-            lat: value.location.rover.latitude.toString(), 
+            lat: value.location.rover.latitude.toString(),
             lng: value.location.rover.longitude.toString()
           }
           // this.coordinates[i] = value.location.rover
@@ -125,75 +138,7 @@ export default {
     // console.log(noom)
     console.log("<+++++++++++")
 
-    // this.dbRef.on('value', ss => {
-    //   // console.log(ss.val());
-    //   for (const [key, value] of Object.entries(ss.val())) {
-    //     if (key == "latitude") {
-    //       this.latitude = value
-    //       console.log(`${key}: ${value}`);
-    //       // la = value;
-
-    //     }
-    //     if (key == "longitude") {
-    //       this.longitude = value
-    //       console.log(`${key}: ${value}`);
-    //       // long = value;
-
-    //     }
-    //     this.center = {
-    //       // lat: (la + la_User) / 2,
-    //       // lng: (long + long_User) / 2
-    //       // lat: la_User, 
-    //       // lng:long_User
-    //     }
-    //     this.coordinates = {
-    //       // 0: {
-    //       //   lat: la.toString(),
-    //       //   lng: long.toString()
-    //       // },
-    //       // 1: {
-    //       //   lat: la_User.toString(),
-    //       //   lng: long_User.toString()
-    //       // },
-    //     }
-
-
-
-    //   }
-    // })
-    // this.dbRef1.on('value', ss => {
-    //   console.log(ss.val());
-    //   for (const [key, value] of Object.entries(ss.val())) {
-    //     if (key == "latitude") {
-    //       this.latitude = value
-    //       console.log(`${key}: ${value}`);
-    //       // this.latitude;
-    //       // la_User = value;
-    //     }
-    //     if (key == "longitude") {
-    //       this.longitude = value
-    //       console.log(`${key}: ${value}`);
-    //       // long_User = value;
-    //     }
-    //     this.center = {
-    //       // lat: (la + la_User) / 2,
-    //       // lng: (long + long_User) / 2,
-    //       // lat: la_User,
-    //       // lng: long_User
-    //     }
-    //     this.coordinates = {
-    //       // 0: {
-    //       //   lat: la.toString(),
-    //       //   lng: long.toString()
-    //       // },
-    //       // 1: {
-    //       //   lat: la_User.toString(),
-    //       //   lng: long_User.toString()
-    //       // },
-    //       //                           
-    //     }
-    //   }
-    // })
+    
   },
   methods: {
     // nameRoverupdate() {
@@ -203,7 +148,14 @@ export default {
     //   var decodedStringAtoB = atob(encodedStringAtoB);
     //   this.NameRover = decodedStringAtoB
     // },
-
+    // rotate(rotate) {
+    //     $(img[src="${my_icon}"]).css(
+    //         {'-webkit-transform' : 'rotate('+ rotate +'deg)',
+    //    '-moz-transform' : 'rotate('+ rotate +'deg)',
+    //    '-ms-transform' : 'rotate('+ rotate +'deg)',
+    //    'transform' : 'rotate('+ rotate +'deg)'});
+    //     },
+    
     noom() {
       console.log(this.coordinates)
 
@@ -227,7 +179,7 @@ export default {
       // if (key == 1) {
       //   return this.iconUser;
       // }
-        return this.iconCar;
+      return this.iconCar;
       // if (this.selectedKey === key) return this.mapMarker;
       // return this.mapMarkerActive;
     },
