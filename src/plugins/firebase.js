@@ -1,6 +1,9 @@
 import firebase from 'firebase/compat/app'
 import 'firebase/compat/database'
+import 'firebase/compat/auth'
 
+//import firebase from 'firebase'
+// require('firebase/auth')
 // ค่า minimum configuration คือ `apiKey` และ `databaseURL`
 const config = {
     apiKey: "AIzaSyB9RkZFAwtJfZUXYvXZBb2S4GYVSzOkpjE",

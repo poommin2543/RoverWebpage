@@ -10,9 +10,13 @@
                             <span class="text-h5">AZ</span>
                         </v-avatar>
                     </v-card>
-                    <v-card height="40%" width="100" class="pa-0 mt-5 ml-3" color="black">
+                    <v-card height="40%" class="pa-0 mt-5 ml-3" color="black">
                         <p style="color:#fff">Admin</p>
                         <p class="mt-n3" style="color:#fff">Zazazazazaz</p>
+                    </v-card>
+                    <v-card height="40px" width="50px" class="pa-0 mt-5 ml-3" color="black">
+                        <v-icon dark size="x-large" style="height:50px" @click="logout"> login</v-icon>
+                        <!-- <v-icon icon="login" size="x-large">login</v-icon> -->
                     </v-card>
                 </v-row>
             </v-card>
@@ -140,8 +144,7 @@
             </v-card>
             <v-card width="100%" color="black" class="d-flex justify-center align-baseline pt-0 pa-0 ma-0">
                 <v-card width="70%" color="black" class="d-flex justify-center  pt-0 pa-0 ma-0">
-                    <v-img class="FullPage" :src="require('../assets/img/Classlogo.svg')" cover
-                    @click="reloadPage"></v-img>
+                    <v-img class="FullPage" :src="require('../assets/img/Classlogo.svg')" cover @click="reloadPage"></v-img>
                 </v-card>
 
             </v-card>
@@ -323,6 +326,19 @@ export default {
         // this.dbRef.off()
     },
     methods: {
+        logout() {
+            firebaseApp
+                .auth()
+                .signOut()
+                .then(() => {
+                    alert('Successfully logged out');
+                    this.$router.push('/');
+                })
+                .catch(error => {
+                    alert(error.message);
+                    this.$router.push('/');
+                });
+        },
         reloadPage() {
             window.location.reload();
         },
@@ -368,7 +384,7 @@ export default {
         updateSelected(text) {
             this.dbRef.off()
             //open Map and VideO
-            
+
             //SetJoy Off
             this.ActiveJoy = false
             // this.doUnSubscribe()
@@ -806,7 +822,7 @@ export default {
                 left: 0
             });
         },
-        
+
 
 
     },
