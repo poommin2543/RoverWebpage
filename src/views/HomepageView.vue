@@ -298,6 +298,7 @@ export default {
         //     }
         // })
         // this.dbRef = firebaseApp.database().ref('/')
+        var ststusdb = true;
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
             this.items = []
@@ -324,6 +325,15 @@ export default {
             }
         })
         // this.dbRef.off()
+        setTimeout(function () {
+            // function code goes here
+            console.log("done++++++++++++++")
+            if (ststusdb == true){
+                
+                this.dbRef.off()
+            }
+            console.log("done++++++++++++++")
+        }, 2000);
     },
     methods: {
         logout() {
@@ -382,7 +392,7 @@ export default {
             }
         },
         updateSelected(text) {
-            this.dbRef.off()
+            // this.dbRef.off()
             //open Map and VideO
 
             //SetJoy Off
