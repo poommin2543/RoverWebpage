@@ -113,6 +113,14 @@
 import firebase from "@/plugins/firebase";
 export default {
   name: "LoginPage",
+  beforeCreate() {
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.$router.push("/home");
+        // alert("You don't have a permission");
+      }
+    });
+  },
   data: function () {
     return {
       email: "",
