@@ -286,6 +286,7 @@ export default {
     },
     mounted() {
         this.createConnection()
+        // var ststusdb = true;
         // this.doSubscribe()
         this.interval = setInterval(() => this.Checkonline(), 3000);
         //   this.isOpened = this.isMenuOpen
@@ -298,7 +299,6 @@ export default {
         //     }
         // })
         // this.dbRef = firebaseApp.database().ref('/')
-        var ststusdb = true;
         this.dbRef.on('value', ss => {
             // console.log(ss.val());
             this.items = []
@@ -316,6 +316,11 @@ export default {
                     icon: 'toys',
                     status: 'offline'
                 });
+                if (key == 'nnn'){
+                    console.log("+++++++++done++++++++++++++")
+                    this.dbRef.off()
+                    console.log("+++++++++done++++++++++++++")
+                }
                 this.subscription = [];
                 this.subscription = {
                     qos: 0,
@@ -325,15 +330,14 @@ export default {
             }
         })
         // this.dbRef.off()
-        setTimeout(function () {
-            // function code goes here
-            console.log("done++++++++++++++")
-            if (ststusdb == true){
+        // setTimeout(function () {
+        //     console.log("done++++++++++++++")
+        //     if (ststusdb == true){
                 
-                this.dbRef.off()
-            }
-            console.log("done++++++++++++++")
-        }, 2000);
+        //         this.dbRef.off()
+        //     }
+        //     console.log("done++++++++++++++")
+        // }, 3000);
     },
     methods: {
         logout() {

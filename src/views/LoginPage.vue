@@ -63,6 +63,7 @@
                     name="password"
                     label="Password"
                     type="password"
+                    :rules="passwordRules"
                   ></v-text-field>
                 </v-form>
               </v-card>
@@ -117,6 +118,10 @@ export default {
       email: "",
       password: "",
       emailRules: [],
+      passwordRules: [
+        (value) => !!value || 'Please type password.',
+        (value) => (value && value.length >= 8) || 'minimum 8 characters',
+      ],
     };
   },
   watch: {
