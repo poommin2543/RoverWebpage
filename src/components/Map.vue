@@ -148,12 +148,10 @@ methods: {
         long = value;
        
       }
-      this.center = {
-        lat: (la + la_User) / 2,
-        lng: (long + long_User) / 2
-        // lat: la_User, 
-        // lng:long_User
-      }
+      // this.center = {
+      //   lat: (la + la_User) / 2,
+      //   lng: (long + long_User) / 2
+      // }
       this.coordinates = {
         0: {
           lat: la.toString(),
@@ -180,12 +178,10 @@ methods: {
         // console.log(`${key}: ${value}`);
         long_User = value;
       }
-      this.center = {
-        lat: (la + la_User) / 2,
-        lng: (long + long_User) / 2
-        // lat: la_User, 
-        // lng:long_User
-      }
+      // this.center = {
+      //   lat: (la + la_User) / 2,
+      //   lng: (long + long_User) / 2
+      // }
       this.coordinates = {
         0: {
           lat: la.toString(),
@@ -199,7 +195,10 @@ methods: {
       }
     }
   })
-
+  this.center = {
+        lat: (la + la_User) / 2,
+        lng: (long + long_User) / 2
+      }
  },
   
   getMarkers(key) {
