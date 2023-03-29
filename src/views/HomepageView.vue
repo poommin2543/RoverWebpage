@@ -326,12 +326,12 @@ import MapAll from "@/components/MapAllRover.vue";
 import firebaseApp from "@/plugins/firebase";
 import mqtt from "mqtt/dist/mqtt";
 import { Janus } from "janus-gateway";
-// let JANUS_URL = 'https://34.143.225.243:8089/janus'
-// if (window.location.protocol === 'http:') {
-//     // console.log(JANUS_URL)
-//     JANUS_URL = 'http://103.82.249.178:8088/janus'
-//     // console.log(JANUS_URL)
-// }
+let JANUS_URL = 'https://34.143.225.243:8089/janus'
+if (window.location.protocol === 'http:') {
+    // console.log(JANUS_URL)
+    JANUS_URL = 'http://103.82.249.178:8088/janus'
+    console.log(JANUS_URL)
+}
 var dictRover = {};
 export default {
   beforeCreate() {
@@ -435,14 +435,14 @@ export default {
     // this.doSubscribe()
     this.interval = setInterval(() => this.Checkonline(), 3000);
     //   this.isOpened = this.isMenuOpen
-    // Janus.init({
-    //     debug: true,
-    //     dependencies: Janus.useDefaultDependencies(),
-    //     callback: () => {
-    //         console.log("Connecting to Janus api with server ", JANUS_URL)
-    //         this.connect(JANUS_URL)
-    //     }
-    // })
+    Janus.init({
+        debug: true,
+        dependencies: Janus.useDefaultDependencies(),
+        callback: () => {
+            console.log("Connecting to Janus api with server ", JANUS_URL)
+            this.connect(JANUS_URL)
+        }
+    })
     // this.dbRef = firebaseApp.database().ref('/')
     this.dbRef.on("value", (ss) => {
       // console.log(ss.val());
@@ -499,7 +499,8 @@ export default {
         });
     },
     reloadPage() {
-      window.location.reload();
+      this.mapState = false
+      // window.location.reload();
     },
     clickAuto() {
       this.isActiveDoor = !this.isActiveDoor;
@@ -595,11 +596,11 @@ export default {
           if (key == "idcam") {
             // console.log(`${key}: ${value}`);
             this.idcamera = value;
-            // if (this.Hisidcamera != this.idcamera) {
-            //     this.start();
-            //     this.Hisidcamera = this.idcamera
+            if (this.Hisidcamera != this.idcamera) {
+                this.start();
+                this.Hisidcamera = this.idcamera
 
-            // }
+            }
           }
           if (key == "door") {
             // console.log(`${key}: ${value}`);
