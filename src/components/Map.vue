@@ -31,7 +31,7 @@ var la = 14.875811571268388;
 var long = 102.01502828868293;
 var la_User = 14.875811571268388;
 var long_User = 102.01502828868293;
-let iconCar = require('../assets/img/class_front.png');
+let iconCar = require('../assets/img/Roverclass.svg');
 let mapMarkerActive = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
 let iconUser = "https://i.postimg.cc/bNC9tsGz/icons8-iphone-se-80.png";
 export default {
