@@ -29,7 +29,7 @@
 <script>
 import firebaseApp from '@/plugins/firebase'
 // import $ from "jquery";
-let iconCar = require('../assets/img/Roverclass.svg');
+let iconCar = require('../assets/img/rovertop.svg');
 let mapMarkerActive = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
 let iconUser = "https://i.postimg.cc/bNC9tsGz/icons8-iphone-se-80.png";
 
