@@ -11,11 +11,11 @@
         <v-row>
           <v-col>
             <v-card
-              class="d-flex align-center justify-center"
+              class="d-flex align-center "
               height="70vh"
               color="transparent"
             >
-              <img
+              <img height="400vh" class=""
                 :src="require('../assets/img/Classgologologin.svg')"
                 alt=""
               />
