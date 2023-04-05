@@ -140,10 +140,13 @@ import Map from "@/components/Map.vue"
 import firebaseApp from '@/plugins/firebase'
 import mqtt from 'mqtt/dist/mqtt'
 import { Janus } from 'janus-gateway'
-let JANUS_URL = 'https://34.143.225.243:8089/janus'
+// let JANUS_URL = 'https://34.143.225.243:8089/janus'
+let JANUS_URL = 'https://janus.noom.website/janus'
+console.log(JANUS_URL)
 if (window.location.protocol === 'http:') {
     // console.log(JANUS_URL)
-    JANUS_URL = 'http://103.82.249.178:8088/janus'
+    // JANUS_URL = 'http://103.82.249.178:8088/janus'
+    JANUS_URL = 'https://janus.noom.website/janus'
     console.log(JANUS_URL)
 }
 var dictRover = {};
