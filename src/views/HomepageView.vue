@@ -161,12 +161,12 @@
               v-if="isActiveOpencontorl"
               width="75%"
               dark
-              :color="this.isActiveDoor == true ? 'white' : 'green'"
-              :outlined="this.isActiveDoor == true ? true : false"
+              :color="this.isActiveDoor != true ? 'white' : 'green'"
+              :outlined="this.isActiveDoor != true ? true : false"
               class="pt-0 pa-0 mt-2 mb-1"
               @click="clickAuto"
             >
-              {{ this.isActiveDoor == true ? "manual" : "auto" }}
+              {{ this.isActiveDoor != true ? "manual" : "auto" }}
             </v-btn>
           </v-card>
           <v-card
@@ -175,7 +175,7 @@
             class="d-flex justify-center pt-0 pa-0 ma-0"
           >
             <v-btn
-              v-if="isActiveOpencontorl && isActiveDoor"
+              v-if="isActiveOpencontorl && isActiveDoor != true"
               width="75%"
               color="white"
               outlined
@@ -190,7 +190,7 @@
             class="d-flex justify-center pt-0 pa-0 ma-0"
           >
             <v-btn
-              v-if="isActiveOpencontorl && isActiveDoor"
+              v-if="isActiveOpencontorl && isActiveDoor != true"
               width="75%"
               :color="this.isActiveJoy == true ? 'red' : 'green'"
               class="pt-0 pa-0 mt-1"
@@ -506,12 +506,12 @@ export default {
       // window.location.reload();
     },
     clickAuto() {
-      this.isActiveDoor = !this.isActiveDoor;
       //SetJoy Off
+      this.isActiveDoor = !this.isActiveDoor;
       this.isActiveJoy = false;
       this.dbRefAutoBtn = firebaseApp
-        .database()
-        .ref("/" + this.namerover + "/status");
+      .database()
+      .ref("/" + this.namerover + "/status");
       if (this.isActiveDoor) {
         this.dbRefAutoBtn.update({ auto: true });
         // this.dbRefAutoDoor.off()

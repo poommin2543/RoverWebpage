@@ -27,10 +27,14 @@
 <script>
 import firebaseApp from '@/plugins/firebase'
 import $ from "jquery";
-var la = 14.875811571268388;
-var long = 102.01502828868293;
-var la_User = 14.875811571268388;
-var long_User = 102.01502828868293;
+var la = 0;
+var long = 0;
+var la_User = 0;
+var long_User = 0;
+// var la = 14.875811571268388;
+// var long = 102.01502828868293;
+// var la_User = 14.875811571268388;
+// var long_User = 102.01502828868293;
 let iconCar = require('../assets/img/Roverclass.svg');
 let mapMarkerActive = "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
 let iconUser = "https://i.postimg.cc/bNC9tsGz/icons8-iphone-se-80.png";
@@ -100,7 +104,7 @@ mounted() {
   this.namerover = localStorage.getItem("Name-rover")
   this.StartgetLocation(this.namerover,this.namerover)
   console.log(this.namerover +"55555555")
-  this.setLocationLatLng();
+  // this.setLocationLatLng();
   // let i = 0;
   // setInterval(() => {
   //   $(`img[src="${iconCar}"]`).css(
@@ -123,7 +127,7 @@ methods: {
     this.dbRefUser.off()
     this.rotateRover(0)
   }
-  console.log(rovername,old)
+  console.log(rovername+'/location/rover')
   this.dbRefRover = firebaseApp.database().ref(rovername+'/location/rover')
   this.dbRefUser = firebaseApp.database().ref(rovername+'/location/user')
   this.dbRefRover.on('value', ss => {
@@ -131,7 +135,7 @@ methods: {
     for (const [key, value] of Object.entries(ss.val())) {
       if (key == "latitude") {
         this.latitude = value
-        // console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
         la = value;
         
       }
@@ -144,7 +148,7 @@ methods: {
       }
       if (key == "longitude") {
         this.longitude = value
-        // console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
         long = value;
        
       }
@@ -169,13 +173,13 @@ methods: {
     for (const [key, value] of Object.entries(ss.val())) {
       if (key == "latitude") {
         this.latitude = value
-        // console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
         // this.latitude;
         la_User = value;
       }
       if (key == "longitude") {
         this.longitude = value
-        // console.log(`${key}: ${value}`);
+        console.log(`${key}: ${value}`);
         long_User = value;
       }
       // this.center = {
@@ -196,9 +200,13 @@ methods: {
     }
   })
   this.center = {
-        lat: (la + la_User) / 2,
-        lng: (long + long_User) / 2
+        lat: 14.8721436,
+        lng: 102.02077519999999
       }
+  // this.center = {
+  //       lat: (la + la_User) / 2,
+  //       lng: (long + long_User) / 2
+  //     }
  },
   
   getMarkers(key) {
