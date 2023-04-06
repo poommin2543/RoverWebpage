@@ -35,11 +35,11 @@
             class="pa-0 mt-0 scrolling rounded-3"
           >
             <v-list>
-              <v-list-item-group v-model="model" mandatory color="indigo">
+              <v-list-item-group   color="indigo">
                 <v-list-item
                   v-for="(item, i) in items"
                   :key="i"
-                  @click="updateSelected(item)"
+                  @click.prevent="updateSelected(item)"
                 >
                   <v-list-item-icon>
                     <!-- <v-icon v-text="item.icon"></v-icon> -->
@@ -383,10 +383,10 @@ export default {
       countRover: 0,
       mapState: false,
       connection: {
-        protocol: "ws",
-        host: "34.143.225.243",
+        protocol: "wss",
+        host: "mqtt.noom.website",
         // ws: 8083; wss: 8084
-        port: 9001,
+        port: 0,
         endpoint: "/mqtt",
         // for more options, please refer to https://github.com/mqttjs/MQTT.js#mqttclientstreambuilder-options
         clean: true,
@@ -394,8 +394,8 @@ export default {
         reconnectPeriod: 4000, // ms
         clientId: "emqx_vue_" + Math.random().toString(16).substring(2, 8),
         // auth
-        username: "test",
-        password: "Test123",
+        username: "rover",
+        password: "Rover123",
       },
       subscription: {
         qos: 0,
