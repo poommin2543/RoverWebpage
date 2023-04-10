@@ -388,8 +388,8 @@ export default {
         host: "mqtt.noom.website",
         // host: "103.82.249.178",
         // ws: 8083; wss: 8084
-        // port: 0,
-        port: 9001,
+        port: 0,
+        // port: 9001,
         endpoint: "/mqtt",
         // for more options, please refer to https://github.com/mqttjs/MQTT.js#mqttclientstreambuilder-options
         clean: true,
@@ -720,14 +720,14 @@ export default {
     // https://github.com/mqttjs/MQTT.js#mqttclientsubscribetopictopic-arraytopic-object-options-callback
     doSubscribe() {
       const { topic, qos } = this.subscription;
-      // this.client.subscribe(topic, { qos }, (error, res) => {
-      this.client.subscribe(topic, { qos }, (error) => {
+      this.client.subscribe(topic, { qos }, (error, res) => {
+      // this.client.subscribe(topic, { qos }, (error) => {
         if (error) {
           console.log("Subscribe to topics error", error);
           return;
         }
         this.subscribeSuccess = true;
-        // console.log('Subscribe to topics res', res)
+        console.log('Subscribe to topics res', res)
       });
     },
     // unsubscribe topic
