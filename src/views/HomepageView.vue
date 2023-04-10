@@ -436,6 +436,7 @@ export default {
     };
   },
   mounted() {
+    console.log("*******************************************")
     this.createConnection();
     // var ststusdb = true;
     // this.doSubscribe()

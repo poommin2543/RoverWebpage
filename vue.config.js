@@ -3,8 +3,8 @@ const { defineConfig } = require('@vue/cli-service')
 const webpack = require('webpack')
 
 module.exports = defineConfig({
-  publicPath: '/',
-  indexPath: 'public/index.html',
+  // publicPath: '/',
+  // indexPath: 'public/index.html',
   transpileDependencies: true,
   configureWebpack: {
     plugins: [
