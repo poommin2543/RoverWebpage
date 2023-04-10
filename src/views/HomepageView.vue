@@ -299,7 +299,7 @@
             playsinline
             width="1280px"
             height="240px"
-          ></video>
+          ></video>     
         </v-card>
         <v-card width="100%" flat height="75%" color="black" class="rounded-0">
           <Map :propNameRover="namerover"></Map>
@@ -326,13 +326,13 @@ import MapAll from "@/components/MapAllRover.vue";
 import firebaseApp from "@/plugins/firebase";
 import mqtt from "mqtt/dist/mqtt";
 import { Janus } from "janus-gateway";
-let JANUS_URL = 'https://34.143.225.243:8089/janus'
-// let JANUS_URL = 'https://janus.noom.website/janus'
+// let JANUS_URL = 'https://34.143.225.243:8089/janus'
+let JANUS_URL = 'https://janus.noom.website/janus'
 console.log(JANUS_URL)
 if (window.location.protocol === 'http:') {
     // console.log(JANUS_URL)
-    JANUS_URL = 'http://103.82.249.178:8088/janus'
-    // JANUS_URL = 'https://janus.noom.website/janus'
+    // JANUS_URL = 'http://103.82.249.178:8088/janus'
+    JANUS_URL = 'https://janus.noom.website/janus'
     console.log(JANUS_URL)
 }
 var dictRover = {};
@@ -383,10 +383,10 @@ export default {
       countRover: 0,
       mapState: false,
       connection: {
-        // protocol: "wss",
-        protocol: "ws",
-        // host: "mqtt.noom.website",
-        host: "103.82.249.178",
+        protocol: "wss",
+        // protocol: "ws",
+        host: "mqtt.noom.website",
+        // host: "103.82.249.178",
         // ws: 8083; wss: 8084
         // port: 0,
         port: 9001,
