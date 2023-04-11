@@ -1,8 +1,8 @@
 <template>
-  <v-container fluid class="fill-height ma-0 pa-0 bg-green" >
+  <v-container fluid class="fill-height ma-0 pa-0 " >
       <v-card
       color="black"
-        class="fill-height rounded-0 d-flex justify-center align-center bg-green"
+        class="fill-height rounded-0 d-flex justify-center align-center"
         width="100%"
         hight="100%"
         dark
@@ -27,7 +27,7 @@
                 height="70vh"
                 color="transparent"
               >
-                <img height="400vh" class=""
+                <img  width="400vw" class=""
                   :src="require('../assets/img/Classgologologin.svg')"
                   alt=""
                 />
@@ -232,11 +232,11 @@ export default {
 }
 
 .v-text-field {
-  width: 400px;
+  width: 25vw;
 }
 
 .v-btn {
-  width: 400px;
+  width: 25vw;
 }
 
 .textics {

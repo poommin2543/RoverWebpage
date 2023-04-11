@@ -239,9 +239,9 @@
               <v-icon
                 type="button"
                 width="20%"
-                v-gamepad:shoulder-left="aaaa"
-                v-gamepad:shoulder-left.released="aaaa"
-                @click="aaaa"
+                v-gamepad:shoulder-left="releasedReset"
+                v-gamepad:shoulder-left.released="releasedReset"
+                @click="releasedReset"
               ></v-icon>
             </v-card>
           </v-card>
@@ -510,6 +510,10 @@ export default {
       // window.location.reload();
     },
     clickAuto() {
+      this.dbRefJoystick = firebaseApp
+          .database()
+          .ref("/" + this.namerover + "/control");
+      this.releasedReset()
       //SetJoy Off
       this.isActiveDoor = !this.isActiveDoor;
       this.isActiveJoy = false;
@@ -543,6 +547,10 @@ export default {
     },
     clickJoy() {
       //ActiveJoy
+      this.dbRefJoystick = firebaseApp
+          .database()
+          .ref("/" + this.namerover + "/control");
+      this.releasedReset()
       this.isActiveJoy = !this.isActiveJoy;
       if (this.isActiveJoy === true) {
         // console.log("/" + this.namerover + '/control')
@@ -982,16 +990,16 @@ export default {
         left: 0,
       });
     },
-    pressedReset(e) {
-      this.textLB = "Click";
-      console.log(`pressLB`, e);
-      this.dbRefJoystick.set({
-        forword: 0,
-        backword: 0,
-        right: 0,
-        left: 0,
-      });
-    },
+    // pressedReset(e) {
+    //   this.textLB = "Click";
+    //   console.log(`pressLB`, e);
+    //   this.dbRefJoystick.set({
+    //     forword: 0,
+    //     backword: 0,
+    //     right: 0,
+    //     left: 0,
+    //   });
+    // },
     releasedReset() {
       this.textLB = "Reset";
       this.dbRefJoystick.set({
