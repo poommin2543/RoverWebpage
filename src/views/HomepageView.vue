@@ -550,7 +550,7 @@ export default {
       this.dbRefJoystick = firebaseApp
           .database()
           .ref("/" + this.namerover + "/control");
-      this.releasedReset()
+      this.releasedReset() 
       this.isActiveJoy = !this.isActiveJoy;
       if (this.isActiveJoy === true) {
         // console.log("/" + this.namerover + '/control')
@@ -1001,6 +1001,9 @@ export default {
     //   });
     // },
     releasedReset() {
+      this.dbRefJoystick = firebaseApp
+          .database()
+          .ref("/" + this.namerover + "/control");
       this.textLB = "Reset";
       this.dbRefJoystick.set({
         forword: 0,
@@ -1016,14 +1019,27 @@ export default {
     this.dbRef = firebaseApp.database().ref("/");
     // this.dbStatus = firebaseApp.database().ref('/Rover1/status')
     // this.dbRef1 = firebaseApp.database().ref('Rover1/location/user')
+    // window.addEventListener('beforeunload', this.logout);
+    window.addEventListener('beforeunload', this.releasedReset);
   },
   beforeDestroy() {
+
     // console.log("beforeDestroy()");
     // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
+    this.dbRefJoystick = firebaseApp
+          .database()
+          .ref("/" + this.namerover + "/control");
+    // window.removeEventListener('beforeunload', this.logout);
+    window.removeEventListener('beforeunload', this.releasedReset);
+    // this.releasedReset
     this.dbRef.off();
     this.dbStatus.off();
     // this.dbRef1.off()
+    this.logout
   },
+  detectTabClose() {
+    this.$router.push("/login");
+  }
 };
 </script>
 <style>

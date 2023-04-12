@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import homepageView from '../views/HomepageView.vue'
 import loginView from '../views/LoginPage.vue'
 import loginnewView from '../views/LoginPagenew.vue'
+import database from '../views/databases.vue'
 
 Vue.use(VueRouter)
 
@@ -26,6 +27,12 @@ const routes = [
         path: '/login',
         name: 'login',
         component: loginnewView,
+        
+    },
+    {
+        path: '/database',
+        name: 'database',
+        component: database,
         
     },
     
