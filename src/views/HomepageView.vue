@@ -1020,7 +1020,7 @@ export default {
     // this.dbStatus = firebaseApp.database().ref('/Rover1/status')
     // this.dbRef1 = firebaseApp.database().ref('Rover1/location/user')
     // window.addEventListener('beforeunload', this.logout);
-    window.addEventListener('beforeunload', this.releasedReset);
+    // window.addEventListener('beforeunload', this.releasedReset);
   },
   beforeDestroy() {
 
