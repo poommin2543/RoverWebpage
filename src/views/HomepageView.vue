@@ -6,12 +6,12 @@
         <v-row no-gutters>
           <v-card height="25%" class="mt-5 ml-5" color="black">
             <v-avatar color="blue">
-              <span class="text-h5">AZ</span>
+              <span class="text-h5">{{shortuserLast}}</span>
             </v-avatar>
           </v-card>
           <v-card height="40%" class="pa-0 mt-5 ml-3" color="black">
-            <p style="color: #fff">Admin</p>
-            <p class="mt-n3" style="color: #fff">Zazazazazaz</p>
+            <p style="color: #fff">{{username}}</p>
+            <p class="mt-n3" style="color: #fff">{{lastname}}</p>
           </v-card>
           <v-card
             height="40px"
@@ -35,7 +35,7 @@
             class="pa-0 mt-0 scrolling rounded-3"
           >
             <v-list>
-              <v-list-item-group   color="indigo">
+              <v-list-item-group color="indigo">
                 <v-list-item
                   v-for="(item, i) in items"
                   :key="i"
@@ -299,7 +299,7 @@
             playsinline
             width="1280px"
             height="240px"
-          ></video>     
+          ></video>
         </v-card>
         <v-card width="100%" flat height="75%" color="black" class="rounded-0">
           <Map :propNameRover="namerover"></Map>
@@ -326,14 +326,15 @@ import MapAll from "@/components/MapAllRover.vue";
 import firebaseApp from "@/plugins/firebase";
 import mqtt from "mqtt/dist/mqtt";
 import { Janus } from "janus-gateway";
+const db = firebaseApp.firestore();
 // let JANUS_URL = 'https://34.143.225.243:8089/janus'
-let JANUS_URL = 'https://janus.noom.website/janus'
-console.log(JANUS_URL)
-if (window.location.protocol === 'http:') {
-    // console.log(JANUS_URL)
-    // JANUS_URL = 'http://103.82.249.178:8088/janus'
-    JANUS_URL = 'https://janus.noom.website/janus'
-    console.log(JANUS_URL)
+let JANUS_URL = "https://janus.noom.website/janus";
+console.log(JANUS_URL);
+if (window.location.protocol === "http:") {
+  // console.log(JANUS_URL)
+  // JANUS_URL = 'http://103.82.249.178:8088/janus'
+  JANUS_URL = "https://janus.noom.website/janus";
+  console.log(JANUS_URL);
 }
 var dictRover = {};
 export default {
@@ -354,6 +355,9 @@ export default {
   data() {
     return {
       drawer: null,
+      username:"Admin",
+      lastname:"Rover",
+      shortuserLast:"AR",
       items: [
         // {
         //     icon: 'mdi-wifi',
@@ -436,21 +440,47 @@ export default {
     };
   },
   mounted() {
-    console.log("*******************************************")
+    console.log("*******************************************");
+    // console.log((localStorage.getItem("mail")))
     this.createConnection();
     // var ststusdb = true;
     // this.doSubscribe()
     this.interval = setInterval(() => this.Checkonline(), 3000);
     //   this.isOpened = this.isMenuOpen
     Janus.init({
-        debug: true,
-        dependencies: Janus.useDefaultDependencies(),
-        callback: () => {
-            console.log("Connecting to Janus api with server ", JANUS_URL)
-            this.connect(JANUS_URL)
-        }
-    })
+      debug: true,
+      dependencies: Janus.useDefaultDependencies(),
+      callback: () => {
+        console.log("Connecting to Janus api with server ", JANUS_URL);
+        this.connect(JANUS_URL);
+      },
+    });
     // this.dbRef = firebaseApp.database().ref('/')
+    db.collection("user")
+      .get()
+      .then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          // console.log(doc.id, " => ", doc.data());
+          // employeesData.push({
+          //   id: doc.id,
+          //   name: doc.data().name,
+          //   date: doc.data().date
+          // });
+          // console.log(doc.id, " => ", doc.data());
+
+          if (doc.id == localStorage.getItem("mail")) {
+            this.username = doc.data().name
+            this.lastname = doc.data().lastname
+            console.log(doc.data().name);
+            console.log(doc.data().lastname);
+            this.shortuserLast = this.username.charAt(0) + this.lastname.charAt(0);
+          }
+        });
+        // this.employeesData = employeesData; // Update the component data property
+      })
+      .catch((error) => {
+        console.log("Error getting documents: ", error);
+      });
     this.dbRef.on("value", (ss) => {
       // console.log(ss.val());
       this.items = [];
@@ -506,20 +536,20 @@ export default {
         });
     },
     reloadPage() {
-      this.mapState = false
+      this.mapState = false;
       // window.location.reload();
     },
     clickAuto() {
       this.dbRefJoystick = firebaseApp
-          .database()
-          .ref("/" + this.namerover + "/control");
-      this.releasedReset()
+        .database()
+        .ref("/" + this.namerover + "/control");
+      this.releasedReset();
       //SetJoy Off
       this.isActiveDoor = !this.isActiveDoor;
       this.isActiveJoy = false;
       this.dbRefAutoBtn = firebaseApp
-      .database()
-      .ref("/" + this.namerover + "/status");
+        .database()
+        .ref("/" + this.namerover + "/status");
       if (this.isActiveDoor) {
         this.dbRefAutoBtn.update({ auto: true });
         // this.dbRefAutoDoor.off()
@@ -548,9 +578,9 @@ export default {
     clickJoy() {
       //ActiveJoy
       this.dbRefJoystick = firebaseApp
-          .database()
-          .ref("/" + this.namerover + "/control");
-      this.releasedReset() 
+        .database()
+        .ref("/" + this.namerover + "/control");
+      this.releasedReset();
       this.isActiveJoy = !this.isActiveJoy;
       if (this.isActiveJoy === true) {
         // console.log("/" + this.namerover + '/control')
@@ -612,9 +642,8 @@ export default {
             // console.log(`${key}: ${value}`);
             this.idcamera = value;
             if (this.Hisidcamera != this.idcamera) {
-                this.start();
-                this.Hisidcamera = this.idcamera
-
+              this.start();
+              this.Hisidcamera = this.idcamera;
             }
           }
           if (key == "door") {
@@ -729,13 +758,13 @@ export default {
     doSubscribe() {
       const { topic, qos } = this.subscription;
       this.client.subscribe(topic, { qos }, (error, res) => {
-      // this.client.subscribe(topic, { qos }, (error) => {
+        // this.client.subscribe(topic, { qos }, (error) => {
         if (error) {
           console.log("Subscribe to topics error", error);
           return;
         }
         this.subscribeSuccess = true;
-        console.log('Subscribe to topics res', res)
+        console.log("Subscribe to topics res", res);
       });
     },
     // unsubscribe topic
@@ -1002,8 +1031,8 @@ export default {
     // },
     releasedReset() {
       this.dbRefJoystick = firebaseApp
-          .database()
-          .ref("/" + this.namerover + "/control");
+        .database()
+        .ref("/" + this.namerover + "/control");
       this.textLB = "Reset";
       this.dbRefJoystick.set({
         forword: 0,
@@ -1023,23 +1052,23 @@ export default {
     // window.addEventListener('beforeunload', this.releasedReset);
   },
   beforeDestroy() {
-
     // console.log("beforeDestroy()");
     // ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom
     this.dbRefJoystick = firebaseApp
-          .database()
-          .ref("/" + this.namerover + "/control");
+      .database()
+      .ref("/" + this.namerover + "/control");
     // window.removeEventListener('beforeunload', this.logout);
-    window.removeEventListener('beforeunload', this.releasedReset);
+    window.removeEventListener("beforeunload", this.releasedReset);
+    // window.removeEventListener('beforeunload', this.$router.push("/login"));
     // this.releasedReset
     this.dbRef.off();
     this.dbStatus.off();
     // this.dbRef1.off()
-    this.logout
+    this.logout;
   },
   detectTabClose() {
     this.$router.push("/login");
-  }
+  },
 };
 </script>
 <style>

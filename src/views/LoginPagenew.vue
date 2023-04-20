@@ -147,7 +147,8 @@ export default {
   },
   methods: {
     login(e) {
-      console.log(this.email, this.password);
+      // console.log(this.email, this.password);
+      localStorage.setItem("mail", this.email);
       firebase
         .auth()
         .signInWithEmailAndPassword(this.email, this.password)

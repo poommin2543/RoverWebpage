@@ -1,71 +1,64 @@
 <template>
-    <!-- eslint-disable -->
-    <div>
-      <el-popover
-        placement="bottom"
-        title="New Employee"
-        width="200"
-        trigger="click"
-      >
-        <el-input
-          placeholder="John Doe"
-          v-model="name"
-          @blur="createEmployee(name, date)"
-        ></el-input>
-        <el-button round slot="reference" type="success"
-          >Add New Employee</el-button
-        >
-      </el-popover>
-      <el-table
-        :data="
-          employeesData.filter(
-            (data) =>
-              !search || data.name.toLowerCase().includes(search.toLowerCase())
-          )
-        "
-        style="width: 100%;"
-      >
-        <el-table-column label="Date" prop="date"> </el-table-column>
-        <el-table-column label="Name" prop="name"> </el-table-column>
-        <el-table-column align="right">
-          <template slot="header" :slot-scope="scope">
-            <el-input v-model="search" size="mini" placeholder="Type to search" />
-          </template>
-          <template slot-scope="scope">
-            <el-popover
-              placement="bottom"
-              title="Edit Employee"
-              width="200"
-              trigger="click"
-            >
-              <el-input
-                placeholder="John Doe"
-                v-model="scope.row.name"
-                @blur="updateEmployee(scope.row.id, scope.row.name, date)"
-              ></el-input>
-              <el-button size="mini" slot="reference">Edit</el-button>
-            </el-popover>
-            <el-button
-              size="mini"
-              type="danger"
-              @click="deleteEmployee(scope.row.id)"
-              >Delete</el-button
-            >
-          </template>
-        </el-table-column>
-      </el-table>
-    </div>
-  </template>
-  
-  <script>
-  
-  export default {
-    name: 'app',
-    data(){
-      return {
-        name: '',
-        employeesData: []
-      }
+  <!-- eslint-disable -->
+  <div>
+    <v-btn @click="readEmployees">
+      Button
+    </v-btn>
+    <v-btn @click="createEmployee">
+      Button
+    </v-btn>
+  </div>
+</template>
+
+<script>
+import firebase from "@/plugins/firebase";
+const db = firebase.firestore();
+
+export default {
+  name: "app",
+  data() {
+    return {
+      name: "",
+      employeesData: []
+    };
+  },
+  methods: {
+    createEmployee() {
+        db.collection("users")
+          .add({ date: "date", name: "name" })
+          .then(() => {
+            console.log("Document successfully written!");
+          })
+          .catch((error) => {
+            console.error("Error writing document: ", error);
+          });
+    },
+    readEmployees() {
+      let employeesData = [];
+      db.collection("user")
+        .get()
+        .then((querySnapshot) => {
+          querySnapshot.forEach((doc) => {
+            // console.log(doc.id, " => ", doc.data());
+            employeesData.push({
+              id: doc.id,
+              name: doc.data().name,
+              date: doc.data().date
+            });
+            console.log(doc.id, " => ", doc.data());
+            if (doc.id == "noom@noom.com") {
+              console.log(doc.data().name)
+              console.log(doc.data().lastname)
+
+            }
+
+          });
+          this.employeesData = employeesData; // Update the component data property
+        })
+        .catch((error) => {
+          console.log("Error getting documents: ", error);
+        });
     }
   }
-  </script>
+};
+</script>
