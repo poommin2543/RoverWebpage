@@ -1,5 +1,5 @@
 const clientId = 'mqttjs_' + Math.random().toString(16).substr(2, 8);
-const host = 'wss://mqtt.noom.website:0/mqtt';
+const host = 'ws://103.82.249.178:9001/mqtt';
 
 const options = {
   keepalive: 60,
@@ -15,7 +15,7 @@ const options = {
     qos: 0,
     retain: false,
   },
-  username: 'rover',
+  username: 'TroverT',
   password: 'Rover123',
 };
 
