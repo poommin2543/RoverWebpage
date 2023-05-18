@@ -91,7 +91,7 @@ export default {
     // readonly
     SetdatafromHomepage() {
       let readData = this.propC
-      console.log(this.propC + "-----------" + this.propC)
+      // console.log(this.propC + "-----------" + this.propC)
       return readData
     }
 
@@ -132,11 +132,11 @@ export default {
     )
 
     this.setLocationLatLng();
-    console.log("+++++++++++>")
+    // console.log("+++++++++++>")
     // this.SetdatafromHomepage();
     // let noom = this.SetdatafromHomepage();
     // console.log(noom)
-    console.log("<+++++++++++")
+    // console.log("<+++++++++++")
 
     
   },
@@ -157,7 +157,7 @@ export default {
     //     },
     
     noom() {
-      console.log(this.coordinates)
+      // console.log(this.coordinates)
 
       // console.log(coordinates)
     },

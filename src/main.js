@@ -11,7 +11,7 @@ Vue.use(VueGoogleMaps, {
   load: {
     key: "AIzaSyD553x-on9CsDmxWaD3rfKg2l3MX48kov8",
     // libraries: "places"
-    libraries: "places,drawing,visualization"
+    libraries: "places,drawing,visualization,directions"
   }
 });
 Vue.config.productionTip = false

@@ -4,7 +4,7 @@ import homepageView from '../views/HomepageView.vue'
 import loginView from '../views/LoginPage.vue'
 import loginnewView from '../views/LoginPagenew.vue'
 import database from '../views/databases.vue'
-
+import maproute from '../views/MaprouteView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -33,6 +33,12 @@ const routes = [
         path: '/database',
         name: 'database',
         component: database,
+        
+    },
+    {
+        path: '/map',
+        name: 'map',
+        component: maproute,
         
     },
     

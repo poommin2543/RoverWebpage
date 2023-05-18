@@ -251,8 +251,8 @@ export default {
             // console.log(ss.val());
             this.items = []
             // this.items.remove()
-            for (const [key, value] of Object.entries(ss.val())) {
-                console.log(`${key}: ${value}`);
+            for (const [key] of Object.entries(ss.val())) {
+                // console.log(`${key}: ${value}`);
 
                 this.countRover++;
                 dictRover[key] = this.countRover;
@@ -491,7 +491,7 @@ export default {
           opaqueId: 'thisisopaqueid',
           success: (pluginHandle) => {
             this.plugin = pluginHandle
-            console.log("getBitrate : ", this.plugin.getBitrate())
+            // console.log("getBitrate : ", this.plugin.getBitrate())
             // this.updateStreamsList()
           },
           error: (error) => {
@@ -500,16 +500,16 @@ export default {
           iceState: (state) => {
             console.log("ICE state changed to ", state)
           },
-          webrtcState: (on) => {
-            console.log("Janus says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now")
-          },
-          slowLink: (uplink, lost, mid) => {
-            console.log("Janus reports problems " + (uplink ? "sending" : "receiving") +
-              " packets on mid " + mid + " (" + lost + " lost packets)")
-          },
+        //   webrtcState: (on) => {
+        //     console.log("Janus says our WebRTC PeerConnection is " + (on ? "up" : "down") + " now")
+        //   },
+        //   slowLink: (uplink, lost, mid) => {
+        //     console.log("Janus reports problems " + (uplink ? "sending" : "receiving") +
+        //       " packets on mid " + mid + " (" + lost + " lost packets)")
+        //   },
           onmessage: (msg, jsep) => {
             // Receive status of plugin streaming 
-            console.log(" ::: Got a message :::", msg)
+            // console.log(" ::: Got a message :::", msg)
             let result = msg.result
             if (result) {
               if (result.status) {
@@ -568,21 +568,21 @@ export default {
           }
         })
       },
-      updateStreamsList() {
-        this.plugin.send({
-          message: { request: "list" },
-          success: (result) => {
-            if (!result) {
-              this.onError("Got no response to our query for available streams.")
-            }
-            console.log("Updating StreamList....", result)
-            this.streamList.options = result.list
-            if (result.list.length) {
-              this.streamList.selected = this.streamList.options[0].id
-            }
-          }
-        })
-      },
+    //   updateStreamsList() {
+    //     this.plugin.send({
+    //       message: { request: "list" },
+    //       success: (result) => {
+    //         if (!result) {
+    //           this.onError("Got no response to our query for available streams.")
+    //         }
+    //         console.log("Updating StreamList....", result)
+    //         this.streamList.options = result.list
+    //         if (result.list.length) {
+    //           this.streamList.selected = this.streamList.options[0].id
+    //         }
+    //       }
+    //     })
+    //   },
       start() {
         // this.plugin.send({ message: { request: "watch", id: this.streamList.selected } })
         this.plugin.send({ message: { request: "watch", id: this.idcamera } })

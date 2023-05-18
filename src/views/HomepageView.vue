@@ -447,14 +447,19 @@ export default {
     // this.doSubscribe()
     this.interval = setInterval(() => this.Checkonline(), 3000);
     //   this.isOpened = this.isMenuOpen
-    Janus.init({
-      debug: true,
-      dependencies: Janus.useDefaultDependencies(),
-      callback: () => {
-        console.log("Connecting to Janus api with server ", JANUS_URL);
-        this.connect(JANUS_URL);
-      },
-    });
+
+    //Janus
+    // Janus.init({
+    //   debug: true,
+    //   dependencies: Janus.useDefaultDependencies(),
+    //   callback: () => {
+    //     // console.log("Connecting to Janus api with server ", JANUS_URL);
+    //     this.connect(JANUS_URL);
+    //   },
+    // });
+
+
+
     // this.dbRef = firebaseApp.database().ref('/')
     db.collection("user")
       .get()
@@ -471,8 +476,8 @@ export default {
           if (doc.id == localStorage.getItem("mail")) {
             this.username = doc.data().name
             this.lastname = doc.data().lastname
-            console.log(doc.data().name);
-            console.log(doc.data().lastname);
+            // console.log(doc.data().name);
+            // console.log(doc.data().lastname);
             this.shortuserLast = this.username.charAt(0) + this.lastname.charAt(0);
           }
         });
@@ -499,9 +504,9 @@ export default {
           status: "offline",
         });
         if (key == "nnn") {
-          console.log("+++++++++done++++++++++++++");
+          // console.log("+++++++++done++++++++++++++");
           this.dbRef.off();
-          console.log("+++++++++done++++++++++++++");
+          // console.log("+++++++++done++++++++++++++");
         }
         this.subscription = [];
         this.subscription = {
@@ -613,7 +618,7 @@ export default {
       if (this.refStatus === true) {
         this.dbStatus.off();
       }
-      console.log(text.text);
+      // console.log(text.text);
       this.namerover = text.text;
       // localStorage.setItem(this.namerover)
       localStorage.setItem("Name-rover", this.namerover);
@@ -760,11 +765,11 @@ export default {
       this.client.subscribe(topic, { qos }, (error, res) => {
         // this.client.subscribe(topic, { qos }, (error) => {
         if (error) {
-          console.log("Subscribe to topics error", error);
+          console.log("Subscribe to topics error", error,res);
           return;
         }
         this.subscribeSuccess = true;
-        console.log("Subscribe to topics res", res);
+        // console.log("Subscribe to topics res", res);
       });
     },
     // unsubscribe topic
@@ -783,7 +788,7 @@ export default {
         server,
         // Call success callback
         success: () => {
-          console.log("Connected");
+          console.log("Connected Janus");
           this.attachPlugin();
         },
         // Call error callback
@@ -833,7 +838,7 @@ export default {
         },
         onmessage: (msg, jsep) => {
           // Receive status of plugin streaming
-          console.log(" ::: Got a message :::", msg);
+          // console.log(" ::: Got a message :::", msg);
           let result = msg.result;
           if (result) {
             if (result.status) {

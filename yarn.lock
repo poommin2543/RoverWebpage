@@ -4393,6 +4393,11 @@ launch-editor@^2.2.1, launch-editor@^2.3.0:
     picocolors "^1.0.0"
     shell-quote "^1.6.1"
 
+leaflet@^1.9.3:
+  version "1.9.3"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.9.3.tgz#52ec436954964e2d3d39e0d433da4b2500d74414"
+  integrity sha512-iB2cR9vAkDOu5l3HAay2obcUHZ7xwUBBjph8+PGtmW/2lYhbLizWtG7nTeYht36WfOslixQF9D/uSIzhZgGMfQ==
+
 leven@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/leven/-/leven-2.1.0.tgz#c2e7a9f772094dee9d34202ae8acce4687875580"
@@ -4948,6 +4953,11 @@ opener@^1.5.2:
   version "1.5.2"
   resolved "https://registry.yarnpkg.com/opener/-/opener-1.5.2.tgz#5d37e1f35077b9dcac4301372271afdeb2a13598"
   integrity sha512-ur5UIdyw5Y7yEj9wLzhqXiy6GZ3Mwx0yGI+5sMn2r0N0v3cKJvUmFH5yPP+WXh9e0xfyzyJX95D8l088DNFj7A==
+
+openrouteservice-js@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/openrouteservice-js/-/openrouteservice-js-0.3.0.tgz#f940ebd1d9431009a0cbb002cc96cd666c7c61d4"
+  integrity sha512-BL1azfaWAGV4haOLLJOqdZ0sk1k4zH1gIVJEfpe0PMGVyBQ3NbhVvyk48zwF6cAATPECSuSW3LNsdhbKJK6njg==
 
 optionator@^0.9.1:
   version "0.9.1"
