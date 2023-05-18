@@ -73,10 +73,8 @@ export default {
     </gmap-map>
   </div>
 </template>
-
 <script>
 import { gmapApi } from "vue2-google-maps";
-
 export default {
   data() {
     return {
@@ -116,6 +114,9 @@ export default {
       const directionsService = new this.google.maps.DirectionsService();
       const directionsRenderer = new this.google.maps.DirectionsRenderer({
         suppressMarkers: true,
+        // polylineOptions: {
+        //   strokeColor: '#b0bec5'  // change this to your desired color
+        // }
       });
       directionsRenderer.setMap(this.map);
 
@@ -140,13 +141,9 @@ export default {
   },
 };
 </script>
-
 <style scoped>
 .map-section {
   height: 100%;
   width: 100%;
-}
-.bggg {
-  background: "#FFFF";
 }
 </style>
