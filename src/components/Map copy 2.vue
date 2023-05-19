@@ -1,43 +1,10 @@
 <template>
   <div class="map-section">
-    <!-- <gmap-map
-      :center="center"
-      :zoom="17"
-      style="width: 100%; height: 100%"
-      :options="{
-        zoomControl: true,
-        scaleControl: true,
-        mapTypeControl: true,
-        // mapTypeId: 'Map',
-        // mapTypeId: 'satellite',
-        panControl: false,
-        streetViewControl: true,
-        fullscreenControl: true,
-        // streetViewControl: false,
-        // disableDefaultUi: false
-        disableDefaultUi: true,
-        overviewMapControl: true,
-        scrollwheel: true,
-      }"
-    > -->
     <gmap-map
       :center="center"
       :zoom="17"
       style="width: 100%; height: 100%"
-      :options="{
-        ...{
-          zoomControl: true,
-          scaleControl: true,
-          mapTypeControl: true,
-          panControl: false,
-          streetViewControl: true,
-          fullscreenControl: true,
-          disableDefaultUi: true,
-          overviewMapControl: true,
-          scrollwheel: true,
-        },
-        ...mapOptions,
-      }"
+      :options="mapOptions"
     >
       <gmap-marker
         v-for="(item, key) in coordinates"
@@ -54,8 +21,8 @@
 
 <script>
 import firebaseApp from "@/plugins/firebase";
-import $ from "jquery";
 import { gmapApi } from "vue2-google-maps";
+import $ from "jquery";
 var la = 0;
 var long = 0;
 var la_User = 0;
@@ -83,23 +50,6 @@ export default {
   },
   data: function () {
     return {
-      mapOptions: {
-        styles: [
-          {
-            stylers: [{ hue: "#e4d4bc" }, { saturation: 250 }],
-          },
-          {
-            featureType: "road",
-            elementType: "geometry",
-            stylers: [{ lightness: 0 }],
-          },
-          {
-            featureType: "road",
-            elementType: "labels.text.fill",
-            stylers: [{ color: "#c4bcac" }],
-          },
-        ],
-      },
       // mapMarker,
       isActive: true,
       namerover: null,
@@ -131,10 +81,47 @@ export default {
           lng: long_User.toString(),
         },
       },
+      map: null,
+      mapOptions: {
+        zoomControl: true,
+        scaleControl: true,
+        mapTypeControl: true,
+        // mapTypeId: 'Map',
+        // mapTypeId: 'satellite',
+        panControl: false,
+        streetViewControl: true,
+        fullscreenControl: true,
+        // streetViewControl: false,
+        // disableDefaultUi: false
+        disableDefaultUi: true,
+        overviewMapControl: true,
+        scrollwheel: true,
+        styles: [
+          {
+            stylers: [{ hue: "#e4d4bc" }, { saturation: 250 }],
+          },
+          {
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [ { lightness: 0 }],
+          },
+          {
+            featureType: "road",
+            elementType: "labels.text.fill",
+            stylers: [
+              { color: "#c4bcac" }, // Change this to your desired color
+            ],
+          },
+        ],
+      },
     };
   },
   computed: {
+    // readonly
     google: gmapApi,
+    aDouble() {
+      return this.center;
+    },
   },
   watch: {
     propNameRover: function (newVal, old) {
@@ -143,13 +130,14 @@ export default {
       this.StartgetLocationRover(newVal, old);
       this.StartgetLocationUser(newVal, old);
     },
+    
   },
   mounted() {
     // this.interval = setInterval(() => this.nameRoverupdate(), 3000);
     this.namerover = localStorage.getItem("Name-rover");
     // this.StartgetLocationUser('Rover1', 'Rover1');
     // this.StartgetLocationRover('Rover1', 'Rover1');
-
+    
     console.log(this.namerover + "55555555");
     // this.setLocationLatLng();
     // let i = 0;
@@ -163,27 +151,43 @@ export default {
     //   i += 90;
     // }, 1000);
     setTimeout(() => {
-      this.StartgetLocationUser(this.namerover, this.namerover);
-      this.StartgetLocationRover(this.namerover, this.namerover);
-      this.drawRouteBetweenRoverAndUser();
-    }, 1000);
-    //     setTimeout(() => {
-    //       this.rotateRover(0);
-    // }, 1000);
+  this.StartgetLocationUser(this.namerover, this.namerover);
+    this.StartgetLocationRover(this.namerover, this.namerover);
+    
+}, 1000);
+// this.$refs.gmap.$mapPromise.then((map) => {
+//       this.map = map;
+//     });
+this.$nextTick(() => {
+  this.$refs.gmap.$mapPromise.then((map) => {
+    this.map = map;
+    this.startRoute();
+  });
+});
+//     setTimeout(() => {
+//       this.rotateRover(0);
+// }, 1000);
   },
   methods: {
-    drawRouteBetweenRoverAndUser() {
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      console.log({ lat: la, lng: long }, { lat: la_User, lng: long_User })
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      this.getRoute({ lat: 14.872434, lng: long }, { lat: la_User, lng: long_User });
+    startRoute(){
+      this.$refs.gmap.$mapPromise.then((map) => {
+      this.map = map;
+      this.getRoute();
+    });
     },
-    getRoute(start, end) {
+    getRoute() {
+      console.log("+-*/+-*/+-*/+-*/+-*/+-*/")
       const directionsService = new this.google.maps.DirectionsService();
       const directionsRenderer = new this.google.maps.DirectionsRenderer({
         suppressMarkers: true,
+        // polylineOptions: {
+        //   strokeColor: '#b0bec5'  // change this to your desired color
+        // }
       });
       directionsRenderer.setMap(this.map);
+
+      const start = { lat: 14.87328, lng: 102.017933 };
+      const end = { lat: 14.874544, lng: 102.020343 };
 
       directionsService.route(
         {
@@ -200,7 +204,9 @@ export default {
         }
       );
     },
+
     StartgetLocationRover(rovername, old) {
+      
       console.log(rovername, old);
       if (rovername != old) {
         // console.log(rovername,old)

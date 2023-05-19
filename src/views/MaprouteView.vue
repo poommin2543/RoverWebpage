@@ -104,12 +104,21 @@ export default {
     google: gmapApi,
   },
   mounted() {
-    this.$refs.gmap.$mapPromise.then((map) => {
+    
+    // this.$refs.gmap.$mapPromise.then((map) => {
+    //   this.map = map;
+    //   this.getRoute();
+    // });
+    this.start();
+  },
+  methods: {
+    start() {
+      this.$refs.gmap.$mapPromise.then((map) => {
       this.map = map;
       this.getRoute();
     });
-  },
-  methods: {
+    },
+
     getRoute() {
       const directionsService = new this.google.maps.DirectionsService();
       const directionsRenderer = new this.google.maps.DirectionsRenderer({
