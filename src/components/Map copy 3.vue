@@ -38,7 +38,6 @@
         },
         ...mapOptions,
       }"
-      ref="gmap"
     >
       <gmap-marker
         v-for="(item, key) in coordinates"
@@ -141,12 +140,8 @@ export default {
     propNameRover: function (newVal, old) {
       // watch it
       // console.log('Prop changed: ', newVal, ' | was: ')
-      
       this.StartgetLocationRover(newVal, old);
       this.StartgetLocationUser(newVal, old);
-      setTimeout(() => {
-      this.drawRouteBetweenRoverAndUser();
-    }, 2000);
     },
   },
   mounted() {
@@ -170,40 +165,20 @@ export default {
     setTimeout(() => {
       this.StartgetLocationUser(this.namerover, this.namerover);
       this.StartgetLocationRover(this.namerover, this.namerover);
-      // this.drawRouteBetweenRoverAndUser();
-    }, 1000);
-    setTimeout(() => {
       this.drawRouteBetweenRoverAndUser();
-    }, 2000);
+    }, 1000);
     //     setTimeout(() => {
     //       this.rotateRover(0);
     // }, 1000);
   },
   methods: {
     drawRouteBetweenRoverAndUser() {
-      this.$refs.gmap.$mapPromise.then((map) => {
-      this.map = map;
-      // this.getRoute({ lat: 14.87328, lng: 102.017933 }, { lat: 14.874544, lng: 102.020343 });
-      this.getRoute({ lat: la, lng: long }, { lat: la_User, lng: long_User })
-      // this.getRoute();
-    });
       console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      // this.getRoute({ lat: 14.872434, lng: long }, { lat: la_User, lng: long_User });
+      console.log({ lat: la, lng: long }, { lat: la_User, lng: long_User })
       console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      // console.log({ lat: 14.87328, lng: 102.017933 }, { lat: 14.874544, lng: 102.020343 })
-      
-    },
-    deleteRoute() {
-      if (this.directionsRenderer) {
-        console.log("***************")
-        this.directionsRenderer.setDirections(null);
-      }
+      this.getRoute({ lat: 14.872434, lng: long }, { lat: la_User, lng: long_User });
     },
     getRoute(start, end) {
-      this.deleteRoute(); // Delete the old route
-      console.log("----------------------------")
-      console.log(start, end)
-      console.log("----------------------------")
       const directionsService = new this.google.maps.DirectionsService();
       const directionsRenderer = new this.google.maps.DirectionsRenderer({
         suppressMarkers: true,
@@ -388,4 +363,33 @@ export default {
   width: 100%;
 }
 
+.map-info-window {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 15px 20px 10px;
+}
+
+.map-info-window-slide-leave-active,
+.map-info-window-slide-enter-active {
+  transition: 0.5s;
+}
+
+.map-info-window-slide-enter {
+  transform: translate(0, -100%);
+}
+
+.map-info-window-slide-leave-to {
+  transform: translate(0, -100%);
+}
+
+.city-info > div {
+  margin-bottom: 10px;
+}
+
+.map-btn-close-holder {
+  margin-top: 10px;
+}
 </style>
