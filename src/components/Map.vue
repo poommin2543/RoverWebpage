@@ -84,6 +84,7 @@ export default {
   },
   data: function () {
     return {
+      directionsRenderer: null,
       mapOptions: {
         styles: [
           {
@@ -141,74 +142,55 @@ export default {
     propNameRover: function (newVal, old) {
       // watch it
       // console.log('Prop changed: ', newVal, ' | was: ')
-      
+
       this.StartgetLocationRover(newVal, old);
       this.StartgetLocationUser(newVal, old);
       setTimeout(() => {
-      this.drawRouteBetweenRoverAndUser();
-    }, 2000);
+        this.drawRouteBetweenRoverAndUser();
+      }, 2000);
     },
   },
   mounted() {
     // this.interval = setInterval(() => this.nameRoverupdate(), 3000);
     this.namerover = localStorage.getItem("Name-rover");
-    // this.StartgetLocationUser('Rover1', 'Rover1');
-    // this.StartgetLocationRover('Rover1', 'Rover1');
 
     console.log(this.namerover + "55555555");
-    // this.setLocationLatLng();
-    // let i = 0;
-    // setInterval(() => {
-    //   $(`img[src="${iconCar}"]`).css(
-    //     '-webkit-transform', 'rotate(' + i + 'deg)',
-    //     '-moz-transform', 'rotate(' + i + 'deg)',
-    //     '-ms-transform', 'rotate(' + i + 'deg)',
-    //     'transform', 'rotate(' + i + 'deg)');
-    //     console.log(i)
-    //   i += 90;
-    // }, 1000);
+
     setTimeout(() => {
       this.StartgetLocationUser(this.namerover, this.namerover);
       this.StartgetLocationRover(this.namerover, this.namerover);
-      // this.drawRouteBetweenRoverAndUser();
     }, 1000);
     setTimeout(() => {
       this.drawRouteBetweenRoverAndUser();
     }, 2000);
-    //     setTimeout(() => {
-    //       this.rotateRover(0);
-    // }, 1000);
   },
   methods: {
     drawRouteBetweenRoverAndUser() {
       this.$refs.gmap.$mapPromise.then((map) => {
-      this.map = map;
-      // this.getRoute({ lat: 14.87328, lng: 102.017933 }, { lat: 14.874544, lng: 102.020343 });
-      this.getRoute({ lat: la, lng: long }, { lat: la_User, lng: long_User })
-      // this.getRoute();
-    });
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      // this.getRoute({ lat: 14.872434, lng: long }, { lat: la_User, lng: long_User });
-      console.log("++++++++++++++++++++++++++++++++++++++++++++")
-      // console.log({ lat: 14.87328, lng: 102.017933 }, { lat: 14.874544, lng: 102.020343 })
-      
+        this.map = map;
+        this.getRoute({ lat: la, lng: long }, { lat: la_User, lng: long_User });
+      });
     },
     deleteRoute() {
       if (this.directionsRenderer) {
-        console.log("***************")
-        this.directionsRenderer.setDirections(null);
+        console.log("***************");
+        console.log(this.directionsRenderer);
+        // this.directionsRenderer.setDirections(null);
+        this.directionsRenderer.setMap(null);
+        console.log("***************");
       }
     },
     getRoute(start, end) {
+      console.log("----------------------------");
+      console.log(start, end);
+      console.log("----------------------------");
       this.deleteRoute(); // Delete the old route
-      console.log("----------------------------")
-      console.log(start, end)
-      console.log("----------------------------")
       const directionsService = new this.google.maps.DirectionsService();
-      const directionsRenderer = new this.google.maps.DirectionsRenderer({
+      this.directionsRenderer = new this.google.maps.DirectionsRenderer({
         suppressMarkers: true,
       });
-      directionsRenderer.setMap(this.map);
+
+      this.directionsRenderer.setMap(this.map);
 
       directionsService.route(
         {
@@ -218,7 +200,10 @@ export default {
         },
         (response, status) => {
           if (status === "OK") {
-            directionsRenderer.setDirections(response);
+            // this.directionsRenderer.setDirections(null);
+            // directionsRenderer.setDirections(null);
+            // this.directionsRenderer.setDirections(null);
+            this.directionsRenderer.setDirections(response);
           } else {
             console.error("Directions request failed due to " + status);
           }
@@ -387,5 +372,4 @@ export default {
   height: 100%;
   width: 100%;
 }
-
 </style>
