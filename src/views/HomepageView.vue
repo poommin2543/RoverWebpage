@@ -448,15 +448,15 @@ export default {
     this.interval = setInterval(() => this.Checkonline(), 3000);
     //   this.isOpened = this.isMenuOpen
 
-    //Janus
-    // Janus.init({
-    //   debug: true,
-    //   dependencies: Janus.useDefaultDependencies(),
-    //   callback: () => {
-    //     // console.log("Connecting to Janus api with server ", JANUS_URL);
-    //     this.connect(JANUS_URL);
-    //   },
-    // });
+    Janus
+    Janus.init({
+      debug: true,
+      dependencies: Janus.useDefaultDependencies(),
+      callback: () => {
+        // console.log("Connecting to Janus api with server ", JANUS_URL);
+        this.connect(JANUS_URL);
+      },
+    });
 
 
 
