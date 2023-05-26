@@ -374,7 +374,7 @@ export default {
       ],
       isActiveJoy: false,
       isActiveDoor: false,
-      isOpenDoor: false,
+      isOpenDoor: null,
       isActiveOpencontorl: false,
       StatusDoor: false,
       namerover: "N/a",
@@ -572,13 +572,10 @@ export default {
         .database()
         .ref("/" + this.namerover + "/status");
       if (this.isOpenDoor) {
-        this.dbRefAutoDoor.update({ door: false });
-        // this.dbRefAutoDoor.off()
-      } else {
-        // this.dbRefAutoDoor = firebaseApp.database().ref("/" + this.namerover + '/status')
         this.dbRefAutoDoor.update({ door: true });
+      } else {
+        this.dbRefAutoDoor.update({ door: false });
       }
-      // this.dbRefAutoDoor.off()
     },
     clickJoy() {
       //ActiveJoy
@@ -655,8 +652,10 @@ export default {
             // console.log(`${key}: ${value}`);
             if (value == true) {
               this.DoorStatus = "Open";
+              this.isOpenDoor = true;
             } else {
               this.DoorStatus = "Close";
+              this.isOpenDoor = false;
             }
           }
           if (key == "auto") {
