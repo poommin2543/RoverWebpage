@@ -2,19 +2,18 @@
   <div class="map-section">
     <!-- <v-btn @click="noom">Click</v-btn> -->
     <gmap-map :center="center" :zoom="17" style="width: 100%; height: 100%" :options="{
-      zoomControl: true,
-      scaleControl: true,
-      mapTypeControl: true,
-      // mapTypeId: 'Map',
-      // mapTypeId: 'satellite',
-      panControl: false,
-      streetViewControl: true,
-      fullscreenControl: true,
-      // streetViewControl: false,
-      // disableDefaultUi: false
-      disableDefaultUi: true,
-      overviewMapControl: true,
-      scrollwheel: true,
+      ...{
+        zoomControl: true,
+        scaleControl: true,
+        mapTypeControl: true,
+        panControl: false,
+        streetViewControl: true,
+        fullscreenControl: true,
+        disableDefaultUi: true,
+        overviewMapControl: true,
+        scrollwheel: true,
+      },
+      ...mapOptions,
     }">
 
       <!-- <gmap-marker v-for="(item, key) in coordinates" :key="key" :position="getPosition(item)" :clickable="true"
@@ -50,6 +49,24 @@ export default {
   data: function () {
     
     return {
+      directionsRenderer: null,
+      mapOptions: {
+        styles: [
+          {
+            stylers: [{ hue: "#FCECD9" }, { saturation: 0 }],
+          },
+          {
+            featureType: "road",
+            elementType: "geometry",
+            stylers: [{ lightness: 0 }],
+          },
+          {
+            featureType: "road",
+            elementType: "labels.text.fill",
+            stylers: [{ color: "#c4bcac" }],
+          },
+        ],
+      },
       readData: null,
       // mapMarker,
       isActive: true,

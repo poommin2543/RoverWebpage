@@ -1,25 +1,5 @@
 <template>
   <div class="map-section">
-    <!-- <gmap-map
-      :center="center"
-      :zoom="17"
-      style="width: 100%; height: 100%"
-      :options="{
-        zoomControl: true,
-        scaleControl: true,
-        mapTypeControl: true,
-        // mapTypeId: 'Map',
-        // mapTypeId: 'satellite',
-        panControl: false,
-        streetViewControl: true,
-        fullscreenControl: true,
-        // streetViewControl: false,
-        // disableDefaultUi: false
-        disableDefaultUi: true,
-        overviewMapControl: true,
-        scrollwheel: true,
-      }"
-    > -->
     <gmap-map
       :center="center"
       :zoom="17"
@@ -50,6 +30,21 @@
       ></gmap-marker>
       <!-- <gmap-marker v-on:change="updateCoordinates()" :position="center" :draggable="true" @closeclick="updateCoordinates()"/> -->
     </gmap-map>
+    <!-- <v-overlay absolute="True" :opacity="opacity">
+      
+      <v-btn>
+        Button
+      </v-btn>
+    </v-overlay> -->
+    <v-overlay :absolute="true" :value="true" class="overlay-position"
+                opacity="0">
+      <!-- Content goes here -->
+      <div>
+        <!-- <v-btn> Button </v-btn> -->
+        <v-img :src="require('../assets/img/iconroute.png')" 
+        @click="drawRouteBetweenRoverAndUser"/>
+      </div>
+    </v-overlay>
   </div>
 </template>
 
@@ -65,7 +60,9 @@ var long_User = 0;
 // var long = 102.01502828868293;
 // var la_User = 14.875811571268388;
 // var long_User = 102.01502828868293;
+
 let iconCar = require("../assets/img/Roverclass.svg");
+// let iconroute = require("../assets/img/iconroute.svg");
 let mapMarkerActive =
   "http://maps.google.com/mapfiles/kml/pushpin/red-pushpin.png";
 let iconUser = "https://i.postimg.cc/bNC9tsGz/icons8-iphone-se-80.png";
@@ -77,6 +74,10 @@ export default {
       type: String,
       default: require("../assets/img/class_front.png"),
     },
+    // LogoRoute: {
+    //   type: String,
+    //   default: require("../assets/img/iconroute.svg"),
+    // },
     propNameRover: {
       type: String,
       required: false,
@@ -88,7 +89,8 @@ export default {
       mapOptions: {
         styles: [
           {
-            stylers: [{ hue: "#e4d4bc" }, { saturation: 250 }],
+            stylers: [{ hue: "#FCECD9" }, { saturation: 0 }],
+            // stylers: [{ hue: "#D3EAFF" }, { saturation: 0 }],
           },
           {
             featureType: "road",
@@ -165,6 +167,9 @@ export default {
     }, 2000);
   },
   methods: {
+    test(){
+      console.log("555555555555555555555")
+    },
     drawRouteBetweenRoverAndUser() {
       this.$refs.gmap.$mapPromise.then((map) => {
         this.map = map;
@@ -371,5 +376,16 @@ export default {
 .map-section {
   height: 100%;
   width: 100%;
+}
+.overlay-position {
+  position: absolute;
+  top: 12%;
+  left: 5%;
+  width: 50px;
+  height: 50px;
+  z-index: 10;
+}
+.content-align-right {
+  text-align: right;
 }
 </style>
