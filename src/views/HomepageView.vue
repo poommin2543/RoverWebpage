@@ -291,7 +291,7 @@
           color="black"
           class="rounded-0 d-flex justify-center"
         >
-          <video
+          <!-- <video
             v-if="status == 'started'"
             autoplay="autoplay"
             :srcObject.prop="stream"
@@ -299,6 +299,17 @@
             playsinline
             width="1280px"
             height="240px"
+            
+          ></video> -->
+          <video
+            v-if="status == 'started'"
+            autoplay="autoplay"
+            :srcObject.prop="stream"
+            ref="videoStream"
+            playsinline
+            width="100%"
+            height="100%"
+            
           ></video>
         </v-card>
         <v-card width="100%" flat height="75%" color="black" class="rounded-0">
