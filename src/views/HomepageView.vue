@@ -1,17 +1,18 @@
 <template>
   <v-container fluid class="fill-height ma-0 pa-0">
+    <!-- <v-flex xs12 sm12 md12> -->
     <v-navigation-drawer height="100%" permanent color="black" width="250">
       <!-- <v-icon>home</v-icon> -->
       <v-card width="100%" color="black" class="rounded-0 pa-0">
         <v-row no-gutters>
           <v-card height="25%" class="mt-5 ml-5" color="black">
             <v-avatar color="blue">
-              <span class="text-h5">{{shortuserLast}}</span>
+              <span class="text-h5">{{ shortuserLast }}</span>
             </v-avatar>
           </v-card>
           <v-card height="40%" class="pa-0 mt-5 ml-3" color="black">
-            <p style="color: #fff">{{username}}</p>
-            <p class="mt-n3" style="color: #fff">{{lastname}}</p>
+            <p style="color: #fff">{{ username }}</p>
+            <p class="mt-n3" style="color: #fff">{{ lastname }}</p>
           </v-card>
           <v-card
             height="40px"
@@ -212,7 +213,7 @@
               class="d-flex justify-center pt-0 pa-0 ma-0"
             >
               <!-- <v-icon width="10px" v-gamepad:button-a="aaaa"
-                                v-gamepad:button-a.released="aaaa"></v-icon> -->
+                                  v-gamepad:button-a.released="aaaa"></v-icon> -->
               <v-icon
                 width="10px"
                 v-gamepad:button-a="pressedA"
@@ -275,7 +276,8 @@
         </v-card>
       </v-card>
     </v-navigation-drawer>
-    <v-content class="fill-height">
+    <!-- </v-flex> -->
+    <v-content class="fill-height" height="100%" width="100%">
       <v-card
         v-if="mapState == true"
         width="100%"
@@ -291,26 +293,25 @@
           color="black"
           class="rounded-0 d-flex justify-center"
         >
-          <!-- <video
-            v-if="status == 'started'"
-            autoplay="autoplay"
-            :srcObject.prop="stream"
-            ref="videoStream"
-            playsinline
-            width="1280px"
-            height="240px"
-            
-          ></video> -->
-          <video
-            v-if="status == 'started'"
-            autoplay="autoplay"
-            :srcObject.prop="stream"
-            ref="videoStream"
-            playsinline
-            width="100%"
-            height="100%"
-            
-          ></video>
+          <v-flex xs12 sm12 md12>
+            <!-- <v-card 
+          flat
+          width="100%"
+          height="100%"
+        > -->
+            <v-img cover>
+              <video
+                v-if="status == 'started'"
+                autoplay="autoplay"
+                :srcObject.prop="stream"
+                ref="videoStream"
+                playsinline
+                width="100%"
+                height="100%"
+              ></video>
+            </v-img>
+            <!-- </v-card> -->
+          </v-flex>
         </v-card>
         <v-card width="100%" flat height="75%" color="black" class="rounded-0">
           <Map :propNameRover="namerover"></Map>
@@ -366,9 +367,9 @@ export default {
   data() {
     return {
       drawer: null,
-      username:"Admin",
-      lastname:"Rover",
-      shortuserLast:"AR",
+      username: "Admin",
+      lastname: "Rover",
+      shortuserLast: "AR",
       items: [
         // {
         //     icon: 'mdi-wifi',
@@ -459,7 +460,7 @@ export default {
     this.interval = setInterval(() => this.Checkonline(), 3000);
     //   this.isOpened = this.isMenuOpen
 
-    Janus
+    Janus;
     Janus.init({
       debug: true,
       dependencies: Janus.useDefaultDependencies(),
@@ -468,8 +469,6 @@ export default {
         this.connect(JANUS_URL);
       },
     });
-
-
 
     // this.dbRef = firebaseApp.database().ref('/')
     db.collection("user")
@@ -485,11 +484,12 @@ export default {
           // console.log(doc.id, " => ", doc.data());
 
           if (doc.id == localStorage.getItem("mail")) {
-            this.username = doc.data().name
-            this.lastname = doc.data().lastname
+            this.username = doc.data().name;
+            this.lastname = doc.data().lastname;
             // console.log(doc.data().name);
             // console.log(doc.data().lastname);
-            this.shortuserLast = this.username.charAt(0) + this.lastname.charAt(0);
+            this.shortuserLast =
+              this.username.charAt(0) + this.lastname.charAt(0);
           }
         });
         // this.employeesData = employeesData; // Update the component data property
@@ -775,7 +775,7 @@ export default {
       this.client.subscribe(topic, { qos }, (error, res) => {
         // this.client.subscribe(topic, { qos }, (error) => {
         if (error) {
-          console.log("Subscribe to topics error", error,res);
+          console.log("Subscribe to topics error", error, res);
           return;
         }
         this.subscribeSuccess = true;
