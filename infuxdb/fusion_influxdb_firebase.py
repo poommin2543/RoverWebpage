@@ -13,10 +13,10 @@ my_Client = InfluxDBClient(
 my_Client.switch_database('mydatabase')
 
 config = {
-  "apiKey": "AIzaSyB9RkZFAwtJfZUXYvXZBb2S4GYVSzOkpjE",
-  "authDomain": "location-a26be.firebaseapp.com",
-  "databaseURL": "https://location-a26be-default-rtdb.asia-southeast1.firebasedatabase.app",
-  "storageBucket": "location-a26be.appspot.com"
+  "apiKey": "AIzaSyB9RkZFAwtJfZUXYvXZBb2S4GYVSzOkpnnnjE",
+  "authDomain": "locaaaation-a26be.firebaseapp.com",
+  "databaseURL": "https://poomminlocation-a26be-default-rtdb.asia-southeast1.firebasedatabase.app",
+  "storageBucket": "Hilocation-a26be.appspot.com"
 }
 
 firebase = pyrebase.initialize_app(config)
@@ -31,6 +31,8 @@ def stream_handler(message):
     print(message["event"]) # put
     print(message["path"]) # /-K7yGTTEp7O549EzTYtI
     print(message["data"]) # {'title': 'Pyrebase', "body": "etc..."}
+    if message["path"] == "":
+        idcam = message["data"]
     json_body = [  
     {
         "measurement": "cputest",
@@ -38,7 +40,7 @@ def stream_handler(message):
             # "host": "server01",
             # "region": "us-west"
             "user": "rover001",
-            "idcam": "11",
+            "idcam": idcam,
             # "brushId": "6a89f539-71c6-490d-a28d-6c5d84c0ee2fw"
         },
         "fields": {
