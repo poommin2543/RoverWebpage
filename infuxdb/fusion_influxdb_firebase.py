@@ -13,10 +13,10 @@ my_Client = InfluxDBClient(
 my_Client.switch_database('mydatabase')
 
 config = {
-  "apiKey": "AIzaSyB9RkZFAwtJfZUXYvXZBb2S4GYVSzOkpnnnjE",
-  "authDomain": "locaaaation-a26be.firebaseapp.com",
-  "databaseURL": "https://poomminlocation-a26be-default-rtdb.asia-southeast1.firebasedatabase.app",
-  "storageBucket": "Hilocation-a26be.appspot.com"
+  "apiKey": "AIzaSyB9RkZFAwtJfZUXYvXZBb2S4GYVSzOkpjE",
+  "authDomain": "location-a26be.firebaseapp.com",
+  "databaseURL": "https://location-a26be-default-rtdb.asia-southeast1.firebasedatabase.app",
+  "storageBucket": "location-a26be.appspot.com"
 }
 
 firebase = pyrebase.initialize_app(config)
