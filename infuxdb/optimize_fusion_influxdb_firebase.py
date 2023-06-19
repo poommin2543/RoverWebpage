@@ -10,16 +10,24 @@ class DataProcessor:
     def __init__(self):
         self.json_body = []
         self.stop_event = Event()
-
-        self.my_Client = InfluxDBClient(
-            host='172.25.3.3',
-            port=8086,
-            username='rover',
-            password="acselab1234",
-            ssl=False,
-            verify_ssl=False
-        )
-        self.my_Client.switch_database('mydatabase')
+        ststusconnext = False
+        while ststusconnext is not True:
+            self.my_Client = InfluxDBClient(
+                host='172.25.3.3',
+                port=8086,
+                username='rover',
+                password="acselab1234",
+                ssl=False,
+                verify_ssl=False
+            )
+            connext = self.my_Client.switch_database('mydatabase')
+            try:
+                self.my_Client.ping()
+                print("Connection successful")
+                ststusconnext = True
+            except Exception as e:
+                print(f"Failed to connect to InfluxDB: {str(e)}")
+        # print(self.my_Client)
 
         config = {
             "apiKey": "AIzaSyB9RkZFAwtJfZUXYvXZBb2S4GYVSzOkpjE",
