@@ -13,8 +13,8 @@ class DataProcessor:
         ststusconnext = False
         while ststusconnext is not True:
             self.my_Client = InfluxDBClient(
-                host='172.25.3.3',
-                port=8086,
+                host='influxdb.noom.website',
+                port=0,
                 username='rover',
                 password="acselab1234",
                 ssl=False,

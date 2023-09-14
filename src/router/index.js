@@ -5,6 +5,7 @@ import loginView from '../views/LoginPage.vue'
 import loginnewView from '../views/LoginPagenew.vue'
 import database from '../views/databases.vue'
 import maproute from '../views/MaprouteView.vue'
+import contro from '../views/LocationcontroView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -39,6 +40,12 @@ const routes = [
         path: '/map',
         name: 'map',
         component: maproute,
+        
+    },
+    {
+        path: '/contro',
+        name: 'contro',
+        component: contro,
         
     },
     
