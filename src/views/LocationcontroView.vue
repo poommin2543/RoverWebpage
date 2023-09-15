@@ -51,7 +51,16 @@
 
 <script>
 import mqtt from "mqtt/dist/mqtt";
+import firebaseApp from "@/plugins/firebase";
 export default {
+  beforeCreate() {
+    firebaseApp.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.$router.push("/");
+        // alert("You don't have a permission");
+      }
+    });
+  },
   data() {
     return {
       Statustext: "Status  here",
