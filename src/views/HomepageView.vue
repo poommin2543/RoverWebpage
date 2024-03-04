@@ -340,12 +340,12 @@ import mqtt from "mqtt/dist/mqtt";
 import { Janus } from "janus-gateway";
 const db = firebaseApp.firestore();
 // let JANUS_URL = 'https://34.143.225.243:8089/janus'
-let JANUS_URL = "https://janus.noom.website/janus";
+let JANUS_URL = "https://janus.roverautonomous.com/janus";
 console.log(JANUS_URL);
 if (window.location.protocol === "http:") {
   // console.log(JANUS_URL)
   // JANUS_URL = 'http://103.82.249.178:8088/janus'
-  JANUS_URL = "https://janus.noom.website/janus";
+  JANUS_URL = "https://janus.roverautonomous.com/janus";
   console.log(JANUS_URL);
 }
 var dictRover = {};
@@ -401,7 +401,7 @@ export default {
       connection: {
         protocol: "wss",
         // protocol: "ws",
-        host: "mqtt.noom.website",
+        host: "mqtt.roverautonomous.com",
         // host: "103.82.249.178",
         // ws: 8083; wss: 8084
         port: 0,
