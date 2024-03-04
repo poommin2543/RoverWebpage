@@ -5,7 +5,8 @@ import loginView from '../views/LoginPage.vue'
 import loginnewView from '../views/LoginPagenew.vue'
 import database from '../views/databases.vue'
 import maproute from '../views/MaprouteView.vue'
-import contro from '../views/LocationcontroView.vue'
+import control from '../views/LocationcontroView.vue'
+import stream from '../views/StreamView.vue'
 Vue.use(VueRouter)
 
 const routes = [
@@ -43,9 +44,15 @@ const routes = [
         
     },
     {
-        path: '/contro',
-        name: 'contro',
-        component: contro,
+        path: '/control',
+        name: 'control',
+        component: control,
+        
+    },
+    {
+        path: '/stream',
+        name: 'stream',
+        component: stream,
         
     },
     
