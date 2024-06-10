@@ -76,7 +76,7 @@ export default {
       connection: {
         protocol: "wss",
         // protocol: "ws",
-        host: "mqtt.noom.website",
+        host: "mqtt.roverautonomous.com",
         // host: "103.82.249.178",
         // ws: 8083; wss: 8084
         port: 0,
